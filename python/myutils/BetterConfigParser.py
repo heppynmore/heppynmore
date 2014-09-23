@@ -1,6 +1,11 @@
-import re,ConfigParser
+import os,re,ConfigParser
 
 class BetterConfigParser(ConfigParser.SafeConfigParser):
+
+    # Workaround for python readline bug. Details in
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1040009
+    if not os.isatty(1):
+	os.environ['TERM'] = 'dumb'
 
     def get(self, section, option):
         result = ConfigParser.SafeConfigParser.get(self, section, option, raw=True)
