@@ -112,9 +112,10 @@ class TreeCache:
 
     @staticmethod
     def get_checksum(file):
-        if 'gsidcap://t3se01.psi.ch:22128' in file:
-            srmPath = 'srm://t3se01.psi.ch:8443/srm/managerv2?SFN='
-            command = 'lcg-ls -b -D srmv2 -l %s' %file.replace('gsidcap://t3se01.psi.ch:22128/','%s/'%srmPath)
+        # If file is remote
+        if ':' in file:
+            srmPath = 'srm://t3se01.psi.ch:8443/srm/managerv2?SFN=//pnfs/psi.ch/cms/trivcat/'
+            command = 'lcg-ls -b -D srmv2 -l %s' %file.replace('root://cms-xrd-global.cern.ch//','%s/'%srmPath)
             p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True)
             lines = p.stdout.readlines()
             if any('No such' in line for line in lines):
@@ -131,9 +132,10 @@ class TreeCache:
     
     @staticmethod
     def file_exists(file):
-        if 'gsidcap://t3se01.psi.ch:22128' in file:
-            srmPath = 'srm://t3se01.psi.ch:8443/srm/managerv2?SFN='
-            command = 'lcg-ls %s' %file.replace('gsidcap://t3se01.psi.ch:22128/','%s/'%srmPath)
+        # If file is remote
+        if ':' in file:
+            srmPath = 'srm://t3se01.psi.ch:8443/srm/managerv2?SFN=//pnfs/psi.ch/cms/trivcat/'
+            command = 'lcg-ls %s' %file.replace('root://cms-xrd-global.cern.ch//','%s/'%srmPath)
             p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True)
             line = p.stdout.readline()
             return not 'No such file or directory' in line
