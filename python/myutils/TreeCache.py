@@ -116,8 +116,10 @@ class TreeCache:
         if ':' in file:
             srmPath = 'srm://t3se01.psi.ch:8443/srm/managerv2?SFN=//pnfs/psi.ch/cms/trivcat/'
             command = 'lcg-ls -b -D srmv2 -l %s' %file.replace('root://cms-xrd-global.cern.ch//','%s/'%srmPath)
+            print(command)
             p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,shell=True)
             lines = p.stdout.readlines()
+            print(lines)
             if any('No such' in line for line in lines):
                 print('File not found')
                 print(command)

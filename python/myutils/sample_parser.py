@@ -34,12 +34,18 @@ class ParseInfo:
         except:
             raise Exception('config file is wrong/missing')
           
+        T3 = False
+	xrootd = False
         if '/pnfs/psi.ch/cms/' in samples_path:
             T3 = True
             _,p2=samples_path.split('/pnfs/')
             t3_path = '/pnfs/'+p2.strip('\n')
+	elif 'root://cms-xrd-global.cern.ch//' in samples_path:
+            xrootd = True
+            srm_path = samples_path.replace('root://cms-xrd-global.cern.ch//','srm://t3se01.psi.ch:8443/srm/managerv2?SFN=/pnfs/psi.ch/cms/trivcat/')
         else:
             T3 = False
+            xrootd = False
 
         config = BetterConfigParser()
         config.read(samples_config)
@@ -53,7 +59,9 @@ class ParseInfo:
         self.__fileslist=[]
         if T3:
             ls = os.popen("lcg-ls -b -D srmv2 -l srm://t3se01.psi.ch:8443/srm/managerv2?SFN="+t3_path)
-        else:
+        elif xrootd:
+            ls = os.popen("lcg-ls -b -D srmv2 -l "+srm_path)
+	else:
             ls = os.popen("ls -l "+samples_path)
     
         for line in ls.readlines():
