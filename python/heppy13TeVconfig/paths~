@@ -1,0 +1,56 @@
+[Configuration]
+#!! List of the config you want to use
+#!! The number of config has to be exaclty 7
+#!! The list only support spaces between configs
+List = paths general cuts training datacard plots lhe_weight
+
+[Directories]
+#!! just a variable
+Dname: VHbb
+#!! Working Directory
+Wdir=/afs/cern.ch/work/b/bortigno/
+samplepath = /afs/cern.ch/work/d/degrutto/public/MiniAOD/
+#!! tmp2.2.3 post-higgsreview
+t3Private = <!Directories|Wdir!>/
+scratch = <!Directories|Wdir!>/
+
+#!! The directory with the code
+vhbbpath= <!Directories|Wdir!>/VHbb/13TeV/<!Directories|Dname!>/
+#!! specifies the .cfg files with the Samples information
+samplesinfo: <!Directories|vhbbpath!>/python/13TeVconfig/samples_nosplit.cfg
+#!! where you want to store the logfiles from job submissions
+logpath= <!Directories|vhbbpath!>/LOG/
+
+#!! from which samples to plot and where to save the plots
+plottingSamples: <!Directories|MVAout!>
+plotpath: <!Directories|vhbbpath!>/Stacks_expertAllnominal_v0.0.0/
+plot_dc_path: <!Directories|vhbbpath!>/Stacks_fromDC_Allnominal_v0.0.0/
+
+#!! cahed files
+tmpSamples=<!Directories|t3Private!>/
+
+#!! from which samples to make the DCs and where to save the DCs
+dcSamples: <!Directories|MVAout!>/
+#limits: <!Directories|vhbbpath!>/Limit_expertAllnominal_controlRegions_pure_highlow/
+limits: <!Directories|vhbbpath!>/Limit_expertAllnominal/
+
+#!! From where to take the raw samples and where to put the prepared trees:
+PREPin: <!Directories|samplepath!>
+PREPout: <!Directories|vhbbpath!>/env/
+#PREPout: <!Directories|scratch!>/
+
+#!! On which samples to apply the regression and write the sys and where to write the resulting trees:
+SYSin: <!Directories|samplepath!>/env/
+#SYSout: <!Directories|samplepath!>/env/sys/
+SYSout: <!Directories|samplepath!>/env/sysAllSyst/
+
+#!! On which samples to evaluate the MVA on and where to write the resulting trees:
+MVAin: <!Directories|SYSout!>/
+MVAout: <!Directories|MVAin!>/MVAout_v0.0.0/
+
+#!! to fix corruption problem use scratch
+#MVAout: <!Directories|scratch!>/
+
+#!! On which samples to evaluate the MVAon and where to write the resulting trees:
+SPLITin: <!Directories|samplepath!>/env/sys/
+SPLITout: <!Directories|SYSout!>/split/

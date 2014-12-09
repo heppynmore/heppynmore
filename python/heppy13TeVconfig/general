@@ -1,0 +1,158 @@
+#!! -------------------------
+#!! GENERAL CONFIGURATION
+#!! -------------------------
+
+[Analysis]
+tag = 13TeV
+
+#!! If this Flag is used then 50% of MC samples will go in training and the rest will be scaled up by a factor of 2.
+#!! if you train on 50% but then set it to 'Fakse' while writing DC, then you get your biased training samples in the limit!!!
+#!! be sure to have this right !!!
+TrainFlag = True
+#Mjj-> False
+
+#!! -------------------------
+#!! REGRESSION
+#!! -------------------------
+#variables with 0s
+#'max(0,hJet_SoftLeptptRel)', 'max(0,hJet_SoftLeptdR)', 'max(0,hJet_SoftLeptPt)', 'hJet_cef', '
+'max(0,hJet_SoftLeptPt)': 'max(0,hJet_SoftLeptPt[0])','max(0,hJet_SoftLeptptRel)': 'max(0,hJet_SoftLeptptRel[0])', 'max(0,hJet_SoftLeptdR)': 'max(0,hJet_SoftLeptdR[0])','hJet_cef': 'hJet_cef[0]',  
+
+[Regression]
+regWeight = ../data/MVA_BDT_REG_Oct8_13TeV.weights.xml
+regVars = ['hJet_pt', 'VHbb::evalJERBias(hJet_ptRaw,hJet_genPt,hJet_eta)', 'hJet_JECUnc', 'VHbb::evalEt(hJet_pt,hJet_eta,hJet_phi,hJet_e)', 'VHbb::evalMt(hJet_pt,hJet_eta,hJet_phi,hJet_e)', 'hJet_ptLeadTrack', 'hJet_nconstituents', 'MET.et', 'VHbb::deltaPhi(MET.phi,hJet_phi)']
+regDict = {'hJet_JECUnc': 'hJet_JECUnc[0]', 'VHbb::evalEt(hJet_pt,hJet_eta,hJet_phi,hJet_e)': 'VHbb::evalEt(hJet_pt[0],hJet_eta[0],hJet_phi[0],hJet_e[0])', 'hJet_ptLeadTrack': 'hJet_ptLeadTrack[0]', 'MET.et': 'MET.et', 'VHbb::evalMt(hJet_pt,hJet_eta,hJet_phi,hJet_e)': 'VHbb::evalMt(hJet_pt[0],hJet_eta[0],hJet_phi[0],hJet_e[0])', 'VHbb::deltaPhi(MET.phi,hJet_phi)': 'VHbb::deltaPhi(MET.phi,hJet_phi[0])', 'hJet_nconstituents': 'hJet_nconstituents[0]', 'hJet_pt': 'hJet_pt[0]', 'VHbb::evalJERBias(hJet_ptRaw,hJet_genPt,hJet_eta)': 'VHbb::evalJERBias(hJet_ptRaw[0],hJet_genPt[0],hJet_eta[0])'}
+regWeightFilterJets = ../data/MVA_BDT_REG_FilterJet.weights.xml
+regDictFilterJets = {"fathFilterJets_pt":"fathFilterJets_pt[0]","VHbb::evalJERBias(fathFilterJets_ptRaw,fathFilterJets_genPt,fathFilterJets_eta)":"VHbb::evalJERBias(fathFilterJets_ptRaw[0],fathFilterJets_genPt[0],fathFilterJets_eta[0])","rho25":"rho25","VHbb::evalEt(fathFilterJets_pt,fathFilterJets_eta,fathFilterJets_phi,fathFilterJets_e)":"VHbb::evalEt(fathFilterJets_pt[0],fathFilterJets_eta[0],fathFilterJets_phi[0],fathFilterJets_e[0])","VHbb::evalMt(fathFilterJets_pt,fathFilterJets_eta,fathFilterJets_phi,fathFilterJets_e)":"VHbb::evalMt(fathFilterJets_pt[0],fathFilterJets_eta[0],fathFilterJets_phi[0],fathFilterJets_e[0])","fathFilterJets_ptLeadTrack":"fathFilterJets_ptLeadTrack[0]","MET.et":"METet","VHbb::deltaPhi(MET.phi,fathFilterJets_phi)":"VHbb::deltaPhi(MET.phi,fathFilterJets_phi[0])"}
+regVarsFilterJets = ["fathFilterJets_pt","VHbb::evalJERBias(fathFilterJets_ptRaw,fathFilterJets_genPt,fathFilterJets_eta)","rho25","VHbb::evalEt(fathFilterJets_pt,fathFilterJets_eta,fathFilterJets_phi,fathFilterJets_e)","VHbb::evalMt(fathFilterJets_pt,fathFilterJets_eta,fathFilterJets_phi,fathFilterJets_e)","fathFilterJets_ptLeadTrack","MET.et","VHbb::deltaPhi(MET.phi,fathFilterJets_phi)"]
+
+#!! --------------------------
+#!! Libraries
+#!! --------------------------
+[BTagReshaping]
+library=<!Directories|vhbbpath!>/interface/BTagReshaping_h.so
+[VHbbNameSpace]
+library=<!Directories|vhbbpath!>/interface/VHbbNameSpace_h.so
+
+#!! for the likelihood
+[AngularLike]
+backgrounds = ['Zbb','Zudsg','ttbar','ZZ']
+yields = {'Zbb':584.8,'Zudsg':881.61,'ttbar':135.7,'ZZ':44.04,'Sig':5.13}
+
+#!! --------------------------
+#!! SYSTEMATICS
+#!! --------------------------
+[systematics]
+systematics: Nominal JER_up JER_down JES_up JES_down beff_up beff_down bmis_up bmis_down beff1_up beff1_down
+
+#!! --------------------------------------------------
+#!! Varibles definition for trainging and evaluation
+#!! --------------------------------------------------
+[treeVarsICHEP]
+Nominal: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+JER_up: H_JER.mass_up H_JER.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_up[0] hJet_pt_JER_up[1] deltaPullAngle deltaPullAngle2
+JER_down: H_JER.mass_down H_JER.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_down[0] hJet_pt_JER_down[1] deltaPullAngle deltaPullAngle2
+JES_up: H_JES.mass_up H_JES.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_up[0] hJet_pt_JES_up[1] deltaPullAngle deltaPullAngle2
+JES_down: H_JES.mass_down H_JES.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_down[0] hJet_pt_JES_down[1] deltaPullAngle deltaPullAngle2
+beff_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvUp[0],hJet_csvUp[1]) min(hJet_csvUp[0],hJet_csvUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+beff_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvDown[0],hJet_csvDown[1]) min(hJet_csvDown[0],hJet_csvDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+bmis_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFUp[0],hJet_csvFUp[1]) min(hJet_csvFUp[0],hJet_csvFUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+bmis_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFDown[0],hJet_csvFDown[1]) min(hJet_csvFDown[0],hJet_csvFDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+beff1_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) min(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+beff1_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) min(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+
+[treeVarsNoMass]
+Nominal: H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2
+
+
+[treeVarsAngularOnly]
+Nominal: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+JER_up: H_JER.mass_up H_JER.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_up[0] hJet_pt_JER_up[1] deltaPullAngle deltaPullAngle2 angleHB_JER_up angleLZ angleZZS_JER_up HVMass_JER_up
+JER_down: H_JER.mass_down H_JER.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_down[0] hJet_pt_JER_down[1] deltaPullAngle deltaPullAngle2 angleHB_JER_down angleLZ angleZZS_JER_down HVMass_JER_down
+JES_up: H_JES.mass_up H_JES.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_up[0] hJet_pt_JES_up[1] deltaPullAngle deltaPullAngle2 angleHB_JES_up angleLZ angleZZS_JES_up HVMass_JES_up
+JES_down: H_JES.mass_down H_JES.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_down[0] hJet_pt_JES_down[1] deltaPullAngle deltaPullAngle2 angleHB_JES_down angleLZ angleZZS_JES_down HVMass_JES_down
+beff_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvUp[0],hJet_csvUp[1]) min(hJet_csvUp[0],hJet_csvUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+beff_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvDown[0],hJet_csvDown[1]) min(hJet_csvDown[0],hJet_csvDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+bmis_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFUp[0],hJet_csvFUp[1]) min(hJet_csvFUp[0],hJet_csvFUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+bmis_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFDown[0],hJet_csvFDown[1]) min(hJet_csvFDown[0],hJet_csvFDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+beff1_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) min(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+beff1_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) min(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 angleHB angleLZ angleZZS HVMass_Reg
+
+[treeVarsSystMass]
+Nominal: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+JER_up: H_JER.mass_up H_JER.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_up[0] hJet_pt_JER_up[1] deltaPullAngle deltaPullAngle2 HVMass_JER_up
+JER_down: H_JER.mass_down H_JER.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JER_down[0] hJet_pt_JER_down[1] deltaPullAngle deltaPullAngle2 HVMass_JER_down
+JES_up: H_JES.mass_up H_JES.pt_up HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_up[0] hJet_pt_JES_up[1] deltaPullAngle deltaPullAngle2 HVMass_JES_up
+JES_down: H_JES.mass_down H_JES.pt_down HVdPhi V.mass V.pt H.dEta max(hJet_csv[0],hJet_csv[1]) min(hJet_csv[0],hJet_csv[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt_JES_down[0] hJet_pt_JES_down[1] deltaPullAngle deltaPullAngle2 HVMass_JES_down
+beff_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvUp[0],hJet_csvUp[1]) min(hJet_csvUp[0],hJet_csvUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+beff_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvDown[0],hJet_csvDown[1]) min(hJet_csvDown[0],hJet_csvDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+bmis_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFUp[0],hJet_csvFUp[1]) min(hJet_csvFUp[0],hJet_csvFUp[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+bmis_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csvFDown[0],hJet_csvFDown[1]) min(hJet_csvFDown[0],hJet_csvFDown[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+beff1_up: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) min(hJet_csv_upBC4p[0],hJet_csv_upBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+beff1_down: H.mass H.pt HVdPhi V.mass V.pt H.dEta max(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) min(hJet_csv_downBC4p[0],hJet_csv_downBC4p[1]) Sum$(aJet_pt>20.&abs(aJet_eta)<2.4) H.dR hJet_pt[0] hJet_pt[1] deltaPullAngle deltaPullAngle2 HVMass_Reg
+
+
+###########################################################################################
+# other things:
+
+[Samples]
+
+DYudsg_nolhe: 'Zudsg','Zudsg5070','Zudsg70100','Zudsg100ext'
+DYc_nolhe:    'Zcc',  'Zcc5070',  'Zcc70100',  'Zcc100ext'  
+DY1b_nolhe:   'Z1b',  'Z1b5070',  'Z1b70100',  'Z1b100ext'  
+DY2b_nolhe:   'Z2b',  'Z2b5070',  'Z2b70100',  'Z2b100ext'  
+
+DYudsg: 'Zudsg','Zudsg1J','Zudsg2J','Zudsg3J','Zudsg4J','ZudsgHT200400','ZudsgHT400','Zudsg5070','Zudsg70100','Zudsg100','Zudsg180','Zudsg100ext'
+DYc:    'Zcc',  'Zcc1J',  'Zcc2J',  'Zcc3J',  'Zcc4J',  'ZccHT200400',  'ZccHT400',  'Zcc5070',  'Zcc70100',  'Zcc100',  'Zcc180'  ,'Zcc100ext'  
+DY1b:   'Z1b',  'Z1b1J',  'Z1b2J',  'Z1b3J',  'Z1b4J',  'Z1bHT200400',  'Z1bHT400',  'Z1b5070',  'Z1b70100',  'Z1b100',  'Z1b180'  ,'Z1b100ext'  
+DY2b:   'Z2b',  'Z2b1J',  'Z2b2J',  'Z2b3J',  'Z2b4J',  'Z2bHT200400',  'Z2bHT400',  'Z2b5070',  'Z2b70100',  'Z2b100',  'Z2b180'  ,'Z2b100ext'  
+Diboson:'ZZb','WZb','ZZlight','WZlight','AltZZb','AltWZb','AltZZlight','AltWZlight','WW'
+Top:    'TT_FullLept','TT_SemiLept'
+s_Top:  'ST_s','ST_t','AltST_tW','STbar_s','STbar_t','AltSTbar_tW'
+DrellYan: <!Samples|DYudsg!>,<!Samples|DYc!>,<!Samples|DY1b!>,<!Samples|DY2b!>
+DrellYan_nolhe: <!Samples|DYudsg_nolhe!>,<!Samples|DYc_nolhe!>,<!Samples|DY1b_nolhe!>,<!Samples|DY2b_nolhe!>
+
+allSIG: 'ZH110','ZH115','ZH120','ZH125','ZH130','ZH135'
+allBKG: <!Samples|DrellYan!>,<!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
+allBKG_nolhe: <!Samples|DrellYan_nolhe!>,<!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
+
+allBKG_ZZsplit: <!Samples|DrellYan!>,<!Samples|Diboson_split!>,<!Samples|Top!>,<!Samples|s_Top!>
+#allBKG: <!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
+BKG_VV_training: <!Samples|DrellYan!>,<!Samples|Top!>,<!Samples|s_Top!>,'WW','WZ'
+
+Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135':'ZH','ZH140':'ZH','ZH145':'ZH','ZH150':'ZH',\
+        'Zudsg':'DYlight','Zudsg1J':'DYlight','Zudsg2J':'DYlight','Zudsg3J':'DYlight','Zudsg4J':'DYlight',\
+        'ZudsgHT200400':'DYlight','ZudsgHT400':'DYlight','Zudsg5070':'DYlight','Zudsg5070ext':'DYlight','Zudsg70100':'DYlight','Zudsg100':'DYlight','Zudsg100ext':'DYlight','Zudsg180':'DYlight',\
+        'Zcc':'DYlight','Zcc1J':'DYlight','Zcc2J':'DYlight','Zcc3J':'DYlight','Zcc4J':'DYlight',\
+        'ZccHT200400':'DYlight','ZccHT400':'DYlight','Zcc5070':'DYlight','Zcc5070ext':'DYlight','Zcc70100':'DYlight','Zcc100':'DYlight','Zcc100ext':'DYlight','Zcc180':'DYlight',\
+        'Z1b':'DY1b','Z1b1J':'DY1b','Z1b2J':'DY1b','Z1b3J':'DY1b','Z1b4J':'DY1b',\
+        'Z2b':'DY2b','Z2b1J':'DY2b','Z2b2J':'DY2b','Z2b3J':'DY2b','Z2b4J':'DY2b',\
+        'Z1bHT200400':'DY1b','Z1bHT400':'DY1b','Z1b5070':'DY1b','Z1b5070ext':'DY1b','Z1b70100':'DY1b','Z1b100':'DY1b','Z1b100ext':'DY1b','Z1b180':'DY1b',\
+        'Z2bHT200400':'DY2b','Z2bHT400':'DY2b','Z2b5070':'DY2b','Z2b5070ext':'DY2b','Z2b70100':'DY2b','Z2b100':'DY2b','Z2b100ext':'DY2b','Z2b180':'DY2b',\
+        'ZZb':'VVb','WW':'VVlight','WZb':'VVb','ZZlight':'VVlight','WZlight':'VVlight','ZZlight':'VVlight',\
+        'TT':'TT,','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT','ST_s':'ST','ST_t':'ST','AltST_tW':'ST','STbar_s':'ST','STbar_t':'ST','AltSTbar_tW':'ST',\
+        'Zee':'Data','Zmm':'Data',\
+        'AltZZlight':'VVlight','AltZZb':'VVb','AltWZlight':'VVlight','AltWZb':'VVb'}
+
+[Weights]
+#5fb:
+#weightF: (PUweightAB*weightTrig2012AB*lheWeight)
+#weightF_sys_UP: (PUweightP*weightTrig2012AB*lheWeight)
+#weightF_sys_DOWN: (PUweightM*weightTrig2012AB*lheWeight)
+
+#nolhe
+#weightF: (PUweight*weightTrig2012*lheWeight)
+# weightF: (PUweight*weightTrig2012*lheWeight*weightSignalQCD*VHbb::ewkAtlas8TeVZllH(genH.pt,genZ.pt)*VHbb::ptWeightDY(lheV_pt)*VHbb::mueEff(Vtype,vLepton_eta[0],vLepton_eta[1],vLepton_pt[0],vLepton_pt[1]))
+# weightF_sys_UP: (PUweightP*weightTrig2012*lheWeight*weightSignalQCD*VHbb::ewkAtlas8TeVZllH(genH.pt,genZ.pt)*VHbb::ptWeightDY(lheV_pt)*VHbb::mueEff(Vtype,vLepton_eta[0],vLepton_eta[1],vLepton_pt[0],vLepton_pt[1]))
+# weightF_sys_DOWN: (PUweightM*weightTrig2012*lheWeight*weightSignalQCD*VHbb::ewkAtlas8TeVZllH(genH.pt,genZ.pt)*VHbb::ptWeightDY(lheV_pt)*VHbb::mueEff(Vtype,vLepton_eta[0],vLepton_eta[1],vLepton_pt[0],vLepton_pt[1]))
+# weightF_QCD_UP: (PUweight*weightTrig2012*lheWeight*weightSignalQCD*(1.+(1./weightSignalQCD-1.)*0.5)*VHbb::ewkAtlas8TeVZllH(genH.pt,genZ.pt)*VHbb::ptWeightDY(lheV_pt)*VHbb::mueEff(Vtype,vLepton_eta[0],vLepton_eta[1],vLepton_pt[0],vLepton_pt[1]))
+# weightF_QCD_DOWN: (PUweight*weightTrig2012*lheWeight*weightSignalQCD*(1.-(1./weightSignalQCD-1.)*0.5)*VHbb::ewkAtlas8TeVZllH(genH.pt,genZ.pt)*VHbb::ptWeightDY(lheV_pt)*VHbb::mueEff(Vtype,vLepton_eta[0],vLepton_eta[1],vLepton_pt[0],vLepton_pt[1]))
+
+#weightF: (PUweight*lheWeight)
+
+weightF: 1
+weightF_sys_UP: 1
+weightF_sys_DOWN: 1
+weightF_QCD_UP: 1
+weightF_QCD_DOWN: 1
+

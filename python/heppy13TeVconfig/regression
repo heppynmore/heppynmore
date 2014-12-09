@@ -1,0 +1,27 @@
+[TrainRegression]
+name = Oct8_13TeV
+signals = ZHtest
+#signals = ZH110,ZH115,ZH120,ZH125,ZH130,ZH135
+#signals = ZH125
+options = !H:!V:NTrees=2000::BoostType=Grad:Shrinkage=0.1:SeparationType=RegressionVariance:UseBaggedGrad:GradBaggingFraction=0.7:nCuts=20:MaxDepth=3:NNodesMax=15
+#options = !H:!V:NTrees=100::BoostType=Grad:Shrinkage=0.7:SeparationType=RegressionVariance:UseBaggedGrad:GradBaggingFraction=0.7:nCuts=20:MaxDepth=3:NNodesMax=5
+#
+#hJet_JECUnc
+#vars = hJet_pt VHbb::evalJERBias(hJet_ptRaw,hJet_genPt,hJet_eta) hJet_JECUnc VHbb::evalEt(hJet_pt,hJet_eta,hJet_phi,hJet_e) VHbb::evalMt(hJet_pt,hJet_eta,hJet_phi,hJet_e) hJet_ptLeadTrack max(0,(hJet_SoftLeptptRel*(hJet_SoftLeptIdlooseMu==1||hJet_SoftLeptId95==1))) max(0,(hJet_SoftLeptdR*(hJet_SoftLeptIdlooseMu==1||hJet_SoftLeptId95==1))) max(0,(hJet_SoftLeptPt*(hJet_SoftLeptIdlooseMu==1||hJet_SoftLeptId95==1))) hJet_cef hJet_nconstituents MET.et VHbb::deltaPhi(MET.phi,hJet_phi)
+# removing max(0,hJet_vtxPt) because missing from the testSample
+#changing METnoPU with MET becuase missing from the testSample 
+
+#for 13tev 
+vars = hJet_pt VHbb::evalJERBias(hJet_ptRaw,hJet_genPt,hJet_eta) hJet_JECUnc VHbb::evalEt(hJet_pt,hJet_eta,hJet_phi,hJet_e) VHbb::evalMt(hJet_pt,hJet_eta,hJet_phi,hJet_e) hJet_ptLeadTrack hJet_nconstituents MET.et VHbb::deltaPhi(MET.phi,hJet_phi) max(0,hJet_vtxMass) max(0,hJet_vtx3dL) max(0,hJet_vtx3deL)
+#variables with 0:
+#max(0,hJet_SoftLeptptRel) max(0,hJet_SoftLeptdR) max(0,hJet_SoftLeptPt) hJet_cef 
+
+
+#vars = hJet_pt hJet_JECUnc
+cut = abs(hJet_eta[0]) < 2.4 & abs(hJet_eta[1]) < 2.4 & hJet_genPt[0] > 0. & hJet_genPt[1] > 0. & hJet_csv[0] > 0. & hJet_csv[1] > 0. & hJet_chf[0] > 0. & hJet_chf[1] > 0.
+
+trainCut = EVENT.event%8==0
+testCut = EVENT.event%8!=0 & EVENT.event%5==0
+weight = 1
+#weight = PUweight
+target = hJet_genPt

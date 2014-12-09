@@ -1,0 +1,52 @@
+[Plot_general]
+
+lumi = 18940.
+
+#!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
+samples:'Zudsg','Zcc','Z1b','Z2b'
+
+#!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
+Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data'}
+
+#!! Here the order and the groups that will go in the plots
+setup: DY2b,DY1b,DYc,DYlight
+setupLog: DY2b,DY1b,DYc,DYlight
+
+#!! Colors dictionary and legend
+colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'DYlc':401,'':1}
+typLegendDict: {'DYlight':'Z+udscg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','Wlight':'W+udscg','W1b':'W + b','W2b':'W + b#bar{b}','TT':'t#bar{t}','ST':'Single top','VV':'VV','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCD':'QCD','Overlay':'VH(b#bar{b}) 125','':''}
+
+#!! Add overflow bin in the plots
+addOverFlow = False
+
+#!! List of regions to be submitted in case of bacth submission
+List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
+
+#!! Possibility to add an additional blinding cut for the plot
+#addBlindingCut = EVENT.run < 203002
+
+#!! Variables definition
+leptons_var:vleptons_ptMax,vleptons_etaMax
+
+#!! Additional global variables
+BDT_plot_blind: False
+BDT_plot_log: False
+plot_mass = ZH125
+Normalize = False
+
+#!! -----------------------
+#!! Plot regions definition
+#!! -----------------------
+
+#!! Plot name should match the cut name in the cuts config
+[Plot:dy_heppy_test]
+#!! which data to compare to
+Datas: Zee
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|leptons_var!>
+#Signal: <!Plot_general|plot_mass!>
+#!! log scale
+log: False
+#!! apply blinding cut
+blind: False
+
