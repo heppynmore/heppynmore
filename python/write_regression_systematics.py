@@ -195,8 +195,8 @@ for job in info:
     fEvent = ROOT.TTreeFormula("Event",'EVENT.event',tree)
     fFatHFlag = ROOT.TTreeFormula("FatHFlag",'FatH.FatHiggsFlag',tree)
     fFatHnFilterJets = ROOT.TTreeFormula("FatHnFilterJets",'nfathFilterJets',tree)
-    fMETet = ROOT.TTreeFormula("METet",'METnoPU.et',tree)
-    fMETphi = ROOT.TTreeFormula("METphi",'METnoPU.phi',tree)
+    fMETet = ROOT.TTreeFormula("METet",'MET.et',tree)
+    fMETphi = ROOT.TTreeFormula("METphi",'MET.phi',tree)
     fHVMass = ROOT.TTreeFormula("HVMass",'HVMass',tree)
     hJet_MtArray = [array('f',[0]),array('f',[0])]
     hJet_EtArray = [array('f',[0]),array('f',[0])]
@@ -406,7 +406,6 @@ for job in info:
 
             #Has fat higgs
             #fatHiggsFlag=fFatHFlag.EvalInstance()*fFatHnFilterJets.EvalInstance()
-
             #get
             vect.SetPtEtaPhiM(fVpt.EvalInstance(),fVeta.EvalInstance(),fVphi.EvalInstance(),fVmass.EvalInstance())
             hJet_pt = tree.hJet_pt
@@ -755,10 +754,11 @@ for job in info:
     print 'Save'
     output.Close()
     print 'Close'
-    targetStorage = pathOUT.replace('gsidcap://t3se01.psi.ch:22128/','srm://t3se01.psi.ch:8443/srm/managerv2?SFN=')+'/'+job.prefix+job.identifier+'.root'
-    command = 'lcg-del -b -D srmv2 -l %s' %(targetStorage)
-    print(command)
-    subprocess.call([command], shell=True)
-    command = 'lcg-cp -b -D srmv2 file:///%s %s' %(tmpDir+'/'+job.prefix+job.identifier+'.root',targetStorage)
-    print(command)
-    subprocess.call([command], shell=True)
+    #t3 specific
+    # targetStorage = pathOUT.replace('gsidcap://t3se01.psi.ch:22128/','srm://t3se01.psi.ch:8443/srm/managerv2?SFN=')+'/'+job.prefix+job.identifier+'.root'
+    #command = 'lcg-del -b -D srmv2 -l %s' %(targetStorage)
+    #print(command)
+    #subprocess.call([command], shell=True)
+    # command = 'lcg-cp -b -D srmv2 file:///%s %s' %(tmpDir+'/'+job.prefix+job.identifier+'.root',targetStorage)
+    #print(command)
+    #subprocess.call([command], shell=True)
