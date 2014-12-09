@@ -43,6 +43,7 @@ config = BetterConfigParser()
 config.read('./${energy}config/paths')
 print config.get('Directories','logpath')
 EOF`
+
 if [ ! -d $logpath ]
     then
     mkdir $logpath
@@ -51,17 +52,17 @@ fi
 #-------------------------------------------------
 #Set the environment for the batch job execution
 #-------------------------------------------------
-cd $CMSSW_BASE/src/
-source /swshare/psit3/etc/profile.d/cms_ui_env.sh
-export SCRAM_ARCH="slc5_amd64_gcc462"
-source $VO_CMS_SW_DIR/cmsset_default.sh
-eval `scramv1 runtime -sh`
+#cd $CMSSW_BASE/src/
+#source /swshare/psit3/etc/profile.d/cms_ui_env.sh
+#export SCRAM_ARCH="slc5_amd64_gcc462"
+#source $VO_CMS_SW_DIR/cmsset_default.sh
+#eval `scramv1 runtime -sh`
 #export LD_PRELOAD="libglobus_gssapi_gsi_gcc64pthr.so.0":${LD_PRELOAD}
-export LD_LIBRARY_PATH=/swshare/glite/globus/lib/:/swshare/glite/d-cache/dcap/lib64/:$LD_LIBRARY_PATH
-export LD_PRELOAD="libglobus_gssapi_gsi_gcc64pthr.so.0:${LD_PRELOAD}"
-mkdir $TMPDIR
+#export LD_LIBRARY_PATH=/swshare/glite/globus/lib/:/swshare/glite/d-cache/dcap/lib64/:$LD_LIBRARY_PATH
+#export LD_PRELOAD="libglobus_gssapi_gsi_gcc64pthr.so.0:${LD_PRELOAD}"
+#mkdir $TMPDIR
 
-cd -   #back to the working dir
+#cd -   #back to the working dir
 
 MVAList=`python << EOF 
 import os
@@ -99,10 +100,10 @@ echo ${configList}
 #------------------------------------
 
 if [ $task = "prep" ]; then
-    ./prepare_environment_with_config.py --samples $sample --config ${energy}config/${configList}
+    ./prepare_environment_with_config.py --samples $sample --config ${energy}config/${configList} --config ${energy}config/samples_nosplit.cfg #sometime I need this add: please check --config ${energy}config/samples_nosplit.cfg
 fi
 if [ $task = "trainReg" ]; then
-    ./trainRegression.py --config ${energy}config/${configList}
+    ./trainRegression.py --config ${energy}config/${configList} --config ${energy}config/regression
 fi
 if [ $task = "sys" ]; then
     ./write_regression_systematics.py --samples $sample --config ${energy}config/${configList}
@@ -143,4 +144,4 @@ if [ $task = "mva_opt" ]; then
     ./train.py --name ${sample} --training ${job_id} --config ${energy}config/${configList} --setting ${additional_arg} --local False
 fi
 
-rm -rf $TMPDIR
+#rm -rf $TMPDIR
