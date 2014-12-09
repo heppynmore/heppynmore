@@ -49,10 +49,15 @@ class TreeCache:
         input = ROOT.TFile.Open(source,'read')
         output.cd()
         tree = input.Get(sample.tree)
-        CountWithPU = input.Get("CountWithPU")
-        CountWithPU2011B = input.Get("CountWithPU2011B")
-        sample.count_with_PU = CountWithPU.GetBinContent(1) 
-        sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1) 
+        try:
+            CountWithPU = input.Get("CountWithPU")
+            CountWithPU2011B = input.Get("CountWithPU2011B")
+            sample.count_with_PU = CountWithPU.GetBinContent(1) 
+            sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1)
+        except:
+            print('WARNING: No Count with PU histograms available. Using 1.')
+            sample.count_with_PU = 1.
+            sample.count_with_PU2011B = 1.
         input.cd()
         obj = ROOT.TObject
         for key in ROOT.gDirectory.GetListOfKeys():
@@ -84,10 +89,15 @@ class TreeCache:
     def get_tree(self, sample, cut):
         input = ROOT.TFile.Open('%s/tmp_%s.root'%(self.__tmpPath,self.__hashDict[sample.name]),'read')
         tree = input.Get(sample.tree)
-        CountWithPU = input.Get("CountWithPU")
-        CountWithPU2011B = input.Get("CountWithPU2011B")
-        sample.count_with_PU = CountWithPU.GetBinContent(1) 
-        sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1) 
+        try:
+            CountWithPU = input.Get("CountWithPU")
+            CountWithPU2011B = input.Get("CountWithPU2011B")
+            sample.count_with_PU = CountWithPU.GetBinContent(1) 
+            sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1) 
+        except:
+            print('WARNING: No Count with PU histograms available. Using 1.')
+            sample.count_with_PU = 1.
+            sample.count_with_PU2011B = 1.
         if sample.subsample:
             cut += '& (%s)' %(sample.subcut)
         ROOT.gROOT.cd()
