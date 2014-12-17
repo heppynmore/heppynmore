@@ -48,6 +48,7 @@ class RegressionTrainer():
         for var in self.__vars:
             factory.AddVariable(var,'D') # add the variables
             self.__apply.append(p.sub(r'\g<0>[0]', var))
+            print (self.__apply)
 
         factory.AddTarget( self.__target )
         mycut = ROOT.TCut( self.__cut )
