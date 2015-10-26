@@ -46,7 +46,10 @@ class StackMaker:
         else:
             self.xMax = eval(config.get('plotDef:%s'%var,'max'))
         self.name = config.get('plotDef:%s'%var,'relPath')
-        self.mass = config.get(section,'Signal')
+        if SignalRegion:
+            self.mass = config.get(section,'Signal')
+        else:
+            self.mass = '125' #use a dummy value
         data = config.get(section,'Datas')
         if '<mass>' in self.name:
             self.name = self.name.replace('<mass>',self.mass)

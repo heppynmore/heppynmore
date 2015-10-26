@@ -754,6 +754,7 @@ for job in info:
     print 'Save'
     output.Close()
     print 'Close'
+
     # In case the OUTpath is not local change the access protocol to be able to write in it.
     # Clean from possible other files with the same name in the OUTpath directory.
     # Copy from the tmp to the OUTpath.
