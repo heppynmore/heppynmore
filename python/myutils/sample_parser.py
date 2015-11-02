@@ -87,9 +87,9 @@ class ParseInfo:
 
             sample = self.checkSplittedSample(_sample)
             if not config.has_option(sample,'infile'): continue
-            infile = _sample
+            infile = config.get(sample,'infile')
             sampleName = config.get(sample,'sampleName')
-            
+
             check_correspondency(sample,self._list,config)                    
             
             #Initialize samplecalss element
