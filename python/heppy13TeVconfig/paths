@@ -6,11 +6,11 @@ List = paths general cuts training datacard plots lhe_weight
 
 [Directories]
 #!! just a variable
-Dname:VHbb_lxplus
+Dname:VHbb
 #!! Working Directory
-Wdir=/Users/pier/Physics/VHbbAnalysis/13tev/
-samplepath = /Users/pier/Physics/VHbbAnalysis/13tev/
-t3Private = <!Directories|vhbbpath!>/
+Wdir=/uscms/home/bortigno/nobackup/vhbb13tev/vhbbV14_vhbb000_cmssw747/src/
+samplepath = /eos/uscms/store/user/bortigno/V14/
+t3Private = /eos/uscms/store/user/bortigno//V14/private/
 scratch = <!Directories|vhbbpath!>/
 
 #!! The directory with the code
