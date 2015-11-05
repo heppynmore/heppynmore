@@ -137,28 +137,32 @@ for job in info:
     reader = ROOT.TMVA.Reader("!Color:!Silent")
     theVars = {}
     leaf = {}
+    formulas = {}
     for key in regVars:
         print(key)
         theVars[key] = array( 'f', [ 0 ] )
-        # theVars[key] = tree.GetLeaf("%s" %(key))
-        # theVars[key].GetNdata()
-        #theVars[key] = theVars[key].GetValuePointer() # this returns a ROOT.PyLongBuffer
-        #theVars[key] = theVars[key].GetValue() # this returns a float
-        # leaf[key] =  array('f',[0])
-        leaf[key] = tree.GetLeaf("%s" %(key))
-        leaf[key].GetNdata()
+        reader.AddVariable(key,theVars[key])
+#       # this could work for formulas
+        formulas[key] = ROOT.TTreeFormula('%s' %(key),'%s' %(key), tree)
+        # this works for single variables
+#        leaf[key] = tree.GetLeaf("%s" %(key))
+#        leaf[key].GetNdata()
         # print(leaf[key])
         # print(type(leaf[key]))
-        reader.AddVariable(key,theVars[key])
 
     # define the new branches for the new tree
-    # Jet_pt = array('f',[0])
-    # Jet_mult = array('f',[0])
-    # Jet_leadTrackPt = array('f',[0])
-    # reader.AddVariable("Jet_pt",Jet_pt)
-    # reader.AddVariable("Jet_mult",Jet_mult)
-    # reader.AddVariable("Jet_leadTrackPt",Jet_leadTrackPt)
-        
+#     Jet_pt = array('f',[0])
+#     Jet_mult = array('f',[0])
+#     Jet_leadTrackPt = array('f',[0])
+#     jet_mult_m_jet_leadTrack = array('f',[0])
+#     reader.AddVariable("Jet_pt",Jet_pt)
+#     # reader.AddVariable("Jet_mult",Jet_mult)
+#     # reader.AddVariable("Jet_leadTrackPt",Jet_leadTrackPt)
+# # the reader need to be declared using the keys - same number of training varibales
+#     formula = ROOT.TTreeFormula('(Jet_mult-Jet_leadTrackPt)','(Jet_mult-Jet_leadTrackPt)', tree)
+#     formula.GetNdata()
+#     reader.AddVariable("(Jet_mult-Jet_leadTrackPt)", jet_mult_m_jet_leadTrack)
+
 
     # addVarsToReader(reader,theVars0,theForms,0)
     # addVarsToReader(reader2,theVars1,theForms,1)
@@ -183,13 +187,15 @@ for job in info:
                 lheWeight[0] = 1.
 
         for i in range(0,tree.nJet):
-            # Jet_pt[0] = tree.Jet_pt[i]
-            # Jet_pt[0] = tree.Jet_pt[i]
+#            Jet_pt[0] = tree.Jet_pt[i]
             # Jet_mult[0] = tree.Jet_mult[i]
             # Jet_leadTrackPt[0] = tree.Jet_leadTrackPt[i]
+#            jet_mult_m_jet_leadTrack[0] = formula.EvalInstance(i)
             for key in regVars:
-                theVars[key][0] = leaf[key].GetValue(i) # this can not work because I am training using formulas and not directly variables
-            print("Jet_pt : %s" %tree.Jet_pt[i])
+            #     theVars[key][0] = leaf[key].GetValue(i) # this can not work because I am training using formulas and not directly variables
+                formulas[key].GetNdata()
+                theVars[key][0] = formulas[key].EvalInstance(i)
+            print("Jet_pt[%s] : %s" %(i,tree.Jet_pt[i]))
 #            print("reader.EvaluateRegression = %f.0" %(reader.EvaluateRegression("jet_regression")[0]))
 #            print("reader.GetRegressionValues = %f.0" %(reader.GetRegressionValues()[i]))
             regressed_Jet_pt_local[0] = reader.EvaluateRegression("jet_regression")[0]
