@@ -6,11 +6,11 @@ List = paths general cuts training datacard plots lhe_weight
 
 [Directories]
 #!! just a variable
-Dname:VHbb
+Dname:heppynmore
 #!! Working Directory
-Wdir=/uscms/home/bortigno/nobackup/vhbb13tev/vhbbV14_vhbb000_cmssw747/src/
+Wdir=/uscms_data/d2/kreis/Hbb/eth/CMSSW_7_4_15/src/
 samplepath = /eos/uscms/store/user/bortigno/V14/
-t3Private = /eos/uscms/store/user/bortigno//V14/private/
+t3Private = /eos/uscms/store/user/kreis/eth/V14/private
 scratch = <!Directories|vhbbpath!>/
 
 #!! The directory with the code
