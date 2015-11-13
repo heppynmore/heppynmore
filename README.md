@@ -1,10 +1,14 @@
-VHbb Analyzer
+Heppy ntuples analyzer
 =============
+
+The goal of this repository is to create a set of tools to manipulate the heppy ntuples.
 
 Welcome
 -------
 
 This code was originally used for the ETH VHbb analysis of LHC Run1. Now it has been upgraded to work with heppy ntuples. The name of the repo acknoledges its first developer Niklas Mohr.
+
+The initial approach was to keep the implementation of the tools and their configuration separate, so it can be generic and easily expanded and use in different context/analyses. Modularity is also encoraged to help collaboration.
 
 Structure
 ---------
