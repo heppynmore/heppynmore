@@ -50,10 +50,8 @@ class TreeCache:
         output.cd()
         tree = input.Get(sample.tree)
         try:
-            CountWithPU = input.Get("CountWithPU")
-            CountWithPU2011B = input.Get("CountWithPU2011B")
+            CountWithPU = input.Get("CountWeighted")
             sample.count_with_PU = CountWithPU.GetBinContent(1) 
-            sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1)
         except:
             print('WARNING: No Count with PU histograms available. Using 1.')
             sample.count_with_PU = 1.
@@ -90,10 +88,8 @@ class TreeCache:
         input = ROOT.TFile.Open('%s/tmp_%s.root'%(self.__tmpPath,self.__hashDict[sample.name]),'read')
         tree = input.Get(sample.tree)
         try:
-            CountWithPU = input.Get("CountWithPU")
-            CountWithPU2011B = input.Get("CountWithPU2011B")
+            CountWithPU = input.Get("CountWeighted")
             sample.count_with_PU = CountWithPU.GetBinContent(1) 
-            sample.count_with_PU2011B = CountWithPU2011B.GetBinContent(1) 
         except:
             print('WARNING: No Count with PU histograms available. Using 1.')
             sample.count_with_PU = 1.
@@ -117,6 +113,8 @@ class TreeCache:
         if anaTag == '7TeV':
             theScale = lumi*sample.xsec*sample.sf/(0.46502*sample.count_with_PU+0.53498*sample.count_with_PU2011B)
         elif anaTag == '8TeV':
+            theScale = lumi*sample.xsec*sample.sf/(sample.count_with_PU)
+        elif anaTag == '13TeV':
             theScale = lumi*sample.xsec*sample.sf/(sample.count_with_PU)
         return theScale
 
