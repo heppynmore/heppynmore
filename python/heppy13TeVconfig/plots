@@ -1,12 +1,13 @@
 [Plot_general]
 
-lumi = 18940.
+#lumi = 18940.
+lumi = 1280.
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
 samples:'Zudsg','Zcc','Z1b','Z2b'
 
 #!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
-Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data'}
+Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data','Zmm':'Data'}
 
 #!! Here the order and the groups that will go in the plots
 setup: DY2b,DY1b,DYc,DYlight
@@ -27,6 +28,7 @@ List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
 
 #!! Variables definition
 leptons_var:vleptons_ptMax,vleptons_etaMax
+met_var:met_pt
 
 #!! Additional global variables
 BDT_plot_blind: False
@@ -43,7 +45,7 @@ Normalize = False
 #!! which data to compare to
 Datas: Zee
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|leptons_var!>
+vars: <!Plot_general|met_var!>
 #Signal: <!Plot_general|plot_mass!>
 #!! log scale
 log: False

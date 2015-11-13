@@ -10,7 +10,7 @@ Dname:heppynmore
 #!! Working Directory
 Wdir=/uscms_data/d2/kreis/Hbb/eth/CMSSW_7_4_15/src/
 samplepath = /eos/uscms/store/user/bortigno/V14/
-t3Private = /eos/uscms/store/user/kreis/eth/V14/private
+t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/
 scratch = <!Directories|vhbbpath!>/
 
 #!! The directory with the code
