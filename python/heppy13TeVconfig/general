@@ -106,10 +106,25 @@ DYudsg: 'Zudsg','Zudsg1J','Zudsg2J','Zudsg3J','Zudsg4J','ZudsgHT200400','ZudsgHT
 DYc:    'Zcc',  'Zcc1J',  'Zcc2J',  'Zcc3J',  'Zcc4J',  'ZccHT200400',  'ZccHT400',  'Zcc5070',  'Zcc70100',  'Zcc100',  'Zcc180'  ,'Zcc100ext'  
 DY1b:   'Z1b',  'Z1b1J',  'Z1b2J',  'Z1b3J',  'Z1b4J',  'Z1bHT200400',  'Z1bHT400',  'Z1b5070',  'Z1b70100',  'Z1b100',  'Z1b180'  ,'Z1b100ext'  
 DY2b:   'Z2b',  'Z2b1J',  'Z2b2J',  'Z2b3J',  'Z2b4J',  'Z2bHT200400',  'Z2bHT400',  'Z2b5070',  'Z2b70100',  'Z2b100',  'Z2b180'  ,'Z2b100ext'  
+WJetsHT0: 'WJetsHT0_light','WJetsHT0_c','WJetsHT0_1b','WJetsHT0_2b'
+WJetsHT100: 'WJetsHT100_light','WJetsHT100_c','WJetsHT100_1b','WJetsHT100_2b'
+WJetsHT200: 'WJetsHT200_light','WJetsHT200_c','WJetsHT200_1b','WJetsHT200_2b'
+WJetsHT400: 'WJetsHT400_light','WJetsHT400_c','WJetsHT400_1b','WJetsHT400_2b'
+WJetsHT600: 'WJetsHT600_light','WJetsHT600_c','WJetsHT600_1b','WJetsHT600_2b'
+
+
+
+#WJudsg: 'WJetsHT0_light','WJetsHT100_light','WJetsHT200_light','WJetsHT400_light','WJetsHT600_light'
+#WJc: 'WJetsHT0_c','WJetsHT100_c','WJetsHT200_c','WJetsHT400_c','WJetsHT600_c'
+#WJ1b: 'WJetsHT0_1b','WJetsHT100_1b','WJetsHT200_1b','WJetsHT400_1b','WJetsHT600_1b'
+#WJ2b: 'WJetsHT0_2b','WJetsHT100_2b','WJetsHT200_2b','WJetsHT400_2b','WJetsHT600_2b'
+
+
 Diboson:'ZZb','WZb','ZZlight','WZlight','AltZZb','AltWZb','AltZZlight','AltWZlight','WW'
 Top:    'TT_FullLept','TT_SemiLept'
-s_Top:  'ST_s','ST_t','AltST_tW','STbar_s','STbar_t','AltSTbar_tW'
+s_Top:  'ST_s','ST_t','ST_tW_antitop','ST_tW_top'
 DrellYan: <!Samples|DYudsg!>,<!Samples|DYc!>,<!Samples|DY1b!>,<!Samples|DY2b!>
+WJets : <!Samples|WJetsHT0!>,<!Samples|WJetsHT100!>,<!Samples|WJetsHT200!>,<!Samples|WJetsHT400!>,<!Samples|WJetsHT600!>
 DrellYan_nolhe: <!Samples|DYudsg_nolhe!>,<!Samples|DYc_nolhe!>,<!Samples|DY1b_nolhe!>,<!Samples|DY2b_nolhe!>
 
 allSIG: 'ZH110','ZH115','ZH120','ZH125','ZH130','ZH135'
@@ -127,10 +142,15 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'ZccHT200400':'DYlight','ZccHT400':'DYlight','Zcc5070':'DYlight','Zcc5070ext':'DYlight','Zcc70100':'DYlight','Zcc100':'DYlight','Zcc100ext':'DYlight','Zcc180':'DYlight',\
         'Z1b':'DY1b','Z1b1J':'DY1b','Z1b2J':'DY1b','Z1b3J':'DY1b','Z1b4J':'DY1b',\
         'Z2b':'DY2b','Z2b1J':'DY2b','Z2b2J':'DY2b','Z2b3J':'DY2b','Z2b4J':'DY2b',\
+	'WJetsHT0_light':'WJudsg','WJetsHT100_light':'WJudsg','WJetsHT200_light':'WJudsg','WJetsHT400_light':'WJudsg','WJetsHT600_light':'WJudsg', \
+        'WJetsHT0_c':'WJc','WJetsHT100_c':'WJc','WJetsHT200_c':'WJc','WJetsHT400_c':'WJc','WJetsHT600_c':'WJc', \
+        'WJetsHT0_1b':'WJ1b','WJetsHT100_1b':'WJ1b','WJetsHT200_1b':'WJ1b','WJetsHT400_1b':'WJ1b','WJetsHT600_1b':'WJ1b',\
+        'WJetsHT0_2b':'WJ2b','WJetsHT100_2b':'WJ2b','WJetsHT200_2b':'WJ2b','WJetsHT400_2b':'WJ2b','WJetsHT600_2b':'WJ2b',\
+        #'WJ2b':'WJ2b','WJ1b':'WJ1b','WJc':'WJc','WJudsg':'WJudsg',\
         'Z1bHT200400':'DY1b','Z1bHT400':'DY1b','Z1b5070':'DY1b','Z1b5070ext':'DY1b','Z1b70100':'DY1b','Z1b100':'DY1b','Z1b100ext':'DY1b','Z1b180':'DY1b',\
         'Z2bHT200400':'DY2b','Z2bHT400':'DY2b','Z2b5070':'DY2b','Z2b5070ext':'DY2b','Z2b70100':'DY2b','Z2b100':'DY2b','Z2b100ext':'DY2b','Z2b180':'DY2b',\
         'ZZb':'VVb','WW':'VVlight','WZb':'VVb','ZZlight':'VVlight','WZlight':'VVlight','ZZlight':'VVlight',\
-        'TT':'TT,','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT','ST_s':'ST','ST_t':'ST','AltST_tW':'ST','STbar_s':'ST','STbar_t':'ST','AltSTbar_tW':'ST',\
+        'TT':'TT,','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT','ST_s':'ST','ST_t':'ST','AltST_tW':'ST','STbar_s':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST',\
         'Zee':'Data','Zmm':'Data',\
         'AltZZlight':'VVlight','AltZZb':'VVb','AltWZlight':'VVlight','AltWZb':'VVb'}
 
