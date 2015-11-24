@@ -4,18 +4,24 @@
 lumi = 1280.
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
-samples:'Zudsg','Zcc','Z1b','Z2b'
+#samples:'Zudsg','Zcc','Z1b','Z2b'
+#samples:'Wudsg','Wc','W1b','W2b'
+samples: <!Samples|Wudsg!>,<!Samples|Wc!>,<!Samples|W1b!>,<!Samples|W2b!>
 
 #!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
-Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data','Zmm':'Data'}
+Group: <!Samples|Group!>
+#Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data','Zmm':'Data','Wudsg':'WJudsg','Wc':'WJc'}
+#Group: {'WJudsg':'DYlight','WJc':'DYc','WJ1b':'DY1b','WJ2b':'DY2b','Zee':'Data','Zmm':'Data'}
 
 #!! Here the order and the groups that will go in the plots
-setup: DY2b,DY1b,DYc,DYlight
-setupLog: DY2b,DY1b,DYc,DYlight
+setup:Wudsg,Wc,W1b,W2b
+setupLog:Wudsg,Wc,W1b,W2b
 
 #!! Colors dictionary and legend
-colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'DYlc':401,'':1}
-typLegendDict: {'DYlight':'Z+udscg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','Wlight':'W+udscg','W1b':'W + b','W2b':'W + b#bar{b}','TT':'t#bar{t}','ST':'Single top','VV':'VV','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCD':'QCD','Overlay':'VH(b#bar{b}) 125','':''}
+#colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'DYlc':401,'':1}
+colorDict: {'Wudsg':401, 'Wc':402, 'W1b':5, 'W2b':41,'':1}
+
+typLegendDict: {'DYlight':'Z+udscg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','Wudsg':'W+udsg','W1b':'W + b','W2b':'W + b#bar{b}','Wc':'W+c','TT':'t#bar{t}','ST':'Single top','VV':'VV','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCD':'QCD','Overlay':'VH(b#bar{b}) 125','':''}
 
 #!! Add overflow bin in the plots
 addOverFlow = False
@@ -44,7 +50,7 @@ Normalize = True
 #!! Plot name should match the cut name in the cuts config
 [Plot:dy_heppy_test]
 #!! which data to compare to
-Datas: Zmm
+Datas: met
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
