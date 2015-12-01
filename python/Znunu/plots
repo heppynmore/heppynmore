@@ -4,9 +4,9 @@
 lumi = 1280.
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
-#samples:'Zudsg','Zcc','Z1b','Z2b'
-#samples:'Wudsg','Wc','W1b','W2b'
-samples: <!Samples|Wudsg!>,<!Samples|Wc!>,<!Samples|W1b!>,<!Samples|W2b!>
+samples:<!Samples|allBKG!>
+#samples:<!Samples|Top!>
+#<!Samples|Zjudsg!>
 
 #!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
 Group: <!Samples|Group!>
@@ -14,16 +14,24 @@ Group: <!Samples|Group!>
 #Group: {'WJudsg':'DYlight','WJc':'DYc','WJ1b':'DY1b','WJ2b':'DY2b','Zee':'Data','Zmm':'Data'}
 
 #!! Here the order and the groups that will go in the plots
-setup:Wudsg,Wc,W1b,W2b
-setupLog:Wudsg,Wc,W1b,W2b
+setup:DYlight,DYc,DY1b,DY2b,Wudsg,Wc,W1b,W2b,Zjudsg,Zj2b,Zj1b,Zjc,QCDlight,QCDc,QCD1b,QCD2b,Top,s_Top,Diboson
+setupLog:DYlight,DYc,DY1b,DY2b,Wudsg,Wc,W1b,W2b,Zjudsg,Zj2b,Zj1b,Zjc,QCDlight,QCDc,QCD1b,QCD2b,Top,s_Top,Diboson
 
 #!! Colors dictionary and legend
-#colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'DYlc':401,'':1}
-colorDict: {'Wudsg':401, 'Wc':402, 'W1b':5, 'W2b':41,'':1}
+#colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'':1}
+#W+light: 418, W+b: 410, W+bb: 416
+#colorDict: {'Wudsg':418,'Wc':420,'W1b':410,'W2b':416}
+#colorDict: {'Zjudsg':596}
 
-typLegendDict: {'DYlight':'Z+udscg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','Wudsg':'W+udsg','W1b':'W + b','W2b':'W + b#bar{b}','Wc':'W+c','TT':'t#bar{t}','ST':'Single top','VV':'VV','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCD':'QCD','Overlay':'VH(b#bar{b}) 125','':''}
+#,'Zjc':840,'Zj1b':922,'Zj2b':920,'':1}
+colorDict: {'DYlight':401,'DYc':402,'DYlc':401,'DY1b':41,'DY2b':5,'Wudsg':418,'Wc':420,'W1b':410,'W2b':416,'Zjudsg':803,'Zj2b':800,'Zj1b':801,'Zjc':805,'Zjudsg':800,'QCDlight':617,'QCDc':618,'QCD1b':619,'QCD2b':620,'Top':862,'s_Top':840,'Diboson':922,'':1}
 
+typLegendDict: {'DYlight':'Z+udscg','DYc':'Z+c#bar{c}','DYlc':'Z+udscg','DY2b':'Z+b#bar{b}','DY1b':'Z+b','Wudsg':'W+udsg','W1b':'W+b','W2b':'W +b#bar{b}','Wc':'W+c','Zjudsg':'Z(#nu#nu)+udsg','Zj1b':'Z(#nu#nu)+b','Zj2b':'Z(#nu#nu)+b#bar{b}','Zjc':'Z(#nu#nu)+c','Top':'T#bar{T}','s_Top':'Single top','Diboson':'WW/WZ/ZZ','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCDlight':'udsg','QCDc':'c','QCD1b':'b','QCD2b':'b#bar{b}','Overlay':'VH(b#bar{b}) 125','':''}
+
+
+#typLegendDict: {'Zjudsg':'Z+udscg'}
 #!! Add overflow bin in the plots
+
 addOverFlow = False
 
 #!! List of regions to be submitted in case of bacth submission
