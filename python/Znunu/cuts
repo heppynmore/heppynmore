@@ -82,7 +82,7 @@ addCuts = Vtype==4
 
 #!! Test with heppy ntuple
 #dy_heppy_test = <!ZHbb|zWindow!>& <!ZHnunubb|addCuts!> & vLeptons_pt[0]>50 & vLeptons_pt[1]>50 & V_pt>100
-dy_heppy_test = <!ZHnunubb|addCuts!> & V_pt>100 
+dy_heppy_test = <!ZHnunubb|addCuts!> & V_pt>400 
 # & HLT_ZeeHbbAll == 1
 # & Jet_btagCSV[hJCidx[0]]>0.9&Jet_btagCSV[hJCidx[1]]>0.7
 
