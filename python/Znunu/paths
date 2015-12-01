@@ -9,8 +9,8 @@ List = paths general cuts training datacard plots lhe_weight
 Dname:heppynmore
 #!! Working Directory
 Wdir=/uscms_data/d2/kreis/Hbb/eth/CMSSW_7_4_15/src/
-samplepath = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/
-t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/
+samplepath = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14
+t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/tmp
 scratch = <!Directories|vhbbpath!>/
 
 #!! The directory with the code
