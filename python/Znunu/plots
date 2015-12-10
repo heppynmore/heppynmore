@@ -5,7 +5,6 @@ lumi = 1280.
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
 samples:[<!Samples|allBKG!>,'ZprimeM800']
-#samples:<!Samples|Top!>
 #<!Samples|Zjudsg!>
 
 #!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
@@ -46,7 +45,8 @@ met_var:met_pt,metPuppi_pt
 higgs_var:Hpt
 bbtag_var:FatjetCA15ungroomed_bbtag
 fatjet_var:FatjetCA15ungroomed_pt
- 
+mt_var:VH_mt 
+
 #!! Additional global variables
 BDT_plot_blind: False
 BDT_plot_log: False
@@ -58,14 +58,15 @@ Normalize = False
 #!! -----------------------
 
 #!! Plot name should match the cut name in the cuts config
-[Plot:dy_heppy_test]
+[Plot:preselection]
 #!! which data to compare to
 Datas: met
 Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
 #vars: <!Plot_general|bbtag_var!>
-vars: <!Plot_general|fatjet_var!>
+#vars: <!Plot_general|fatjet_var!>
+vars: <!Plot_general|mt_var!>
 Signal: ZprimeM800
 #Signal: <!Plot_general|plot_mass!>
 #Hpt

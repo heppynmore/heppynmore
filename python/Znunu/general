@@ -150,7 +150,8 @@ ZJetsHT600: 'ZJetsHT600toInf_light','ZJetsHT600toInf_c','ZJetsHT600toInf_1b','ZJ
 
 Diboson:'WW','WZ','ZZ'
 #Diboson:'ZZb','WZb','ZZlight','WZlight','AltZZb','AltWZb','AltZZlight','AltWZlight','WW'
-Top:'TT_FullLept','TT_SingleLeptFromT','TT_SingleLeptFromTbar' 
+#Top:'TT_FullLept','TT_SingleLeptFromT','TT_SingleLeptFromTbar' 
+Top:'TTincMad'
 s_Top:'ST_s','ST_t','ST_tW_antitop','ST_tW_top'
 QCD : <!Samples|QCDlight!>,<!Samples|QCDc!>,<!Samples|QCD1b!>,<!Samples|QCD2b!>
 DrellYan: <!Samples|DYlight!>,<!Samples|DYc!>,<!Samples|DY1b!>,<!Samples|DY2b!>
@@ -173,8 +174,9 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'ZccHT200400':'DYc','ZccHT400':'DYc','Zcc5070':'DYc','Zcc5070ext':'DYc','Zcc70100':'DYc','Zcc100':'DYc','Zcc100ext':'DYc','Zcc180':'DYc',\
         'Z1b':'DY1b','Z1b1J':'DY1b','Z1b2J':'DY1b','Z1b3J':'DY1b','Z1b4J':'DY1b',\
         'Z2b':'DY2b','Z2b1J':'DY2b','Z2b2J':'DY2b','Z2b3J':'DY2b','Z2b4J':'DY2b',\
-	'TT_FullLept':'TT','TT_SingleLeptFromT':'TT','TT_SingleLeptFromTbar':'TT',\
-	
+	#'TT_FullLept':'TT','TT_SingleLeptFromT':'TT','TT_SingleLeptFromTbar':'TT',\
+	'TTincMad':'TT',\
+
 	'WJetsHT0_light':'Wudsg','WJetsHT100_light':'Wudsg','WJetsHT200_light':'Wudsg','WJetsHT400_light':'Wudsg','WJetsHT600_light':'Wudsg', \
         'WJetsHT0_c':'Wc','WJetsHT100_c':'Wc','WJetsHT200_c':'Wc','WJetsHT400_c':'Wc','WJetsHT600_c':'Wc', \
         'WJetsHT0_1b':'W1b','WJetsHT100_1b':'W1b','WJetsHT200_1b':'W1b','WJetsHT400_1b':'W1b','WJetsHT600_1b':'W1b',\
@@ -195,7 +197,8 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
         'Z2bHT200400':'DY2b','Z2bHT400':'DY2b','Z2b5070':'DY2b','Z2b5070ext':'DY2b','Z2b70100':'DY2b','Z2b100':'DY2b','Z2b100ext':'DY2b','Z2b180':'DY2b',\
         #'ZZb':'VVb','WW':'VVlight','WZb':'VVb','ZZlight':'VVlight','WZlight':'VVlight','ZZlight':'VVlight',\
 	'WW':'Diboson','WZ':'Diboson','ZZ':'Diboson',\
-	'TT_FullLept':'Top','TT_SingleLeptFromT':'Top','TT_SingleLeptFromTbar':'Top',\
+	#'TT_FullLept':'Top','TT_SingleLeptFromT':'Top','TT_SingleLeptFromTbar':'Top',\
+	'TTincMad':'Top',\
         'ST_s':'s_Top','ST_t':'s_Top','AltST_tW':'s_Top','STbar_s':'s_Top','ST_tW_antitop':'s_Top','ST_tW_top':'s_Top',\
         'Zee':'Data','Zmm':'Data', 'Zm':'Data', 'met':'Data',\
         'AltZZlight':'VVlight','AltZZb':'VVb','AltWZlight':'VVlight','AltWZb':'VVb'}
