@@ -1,0 +1,118 @@
+[Plot_general]
+
+#lumi = 18940.
+lumi = 1264.
+
+#!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
+samples:<!Samples|TTHT!>,'WQQ','WW','WZ','ZZ',<!Samples|QCDHT700!>,<!Samples|QCDHT1000!>,<!Samples|QCDHT1500!>,<!Samples|QCDHT2000!>,<!Samples|QCDHT500!>,<!Samples|QCDHT300!>
+#,'QCD700udsg','QCD1000udsg','QCD1500udsg','QCD2000udsg','QCD700cc','QCD1000cc','QCD1500cc','QCD2000cc','QCD7002b','QCD10002b','QCD15002b','QCD20002b','QCD15001b'
+#,'QCD15001b','QCD20001b'
+#<!Samples|QCD!>
+
+#<!Samples|WJets!>,<!Samples|s_Top!>,'TT'
+
+#!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
+Group: {'JetHT':'Data','Zee':'Data','Zmm':'Data','Zm':'Data','TT':'TT','WJetsHT0_light':'WJudsg','WJetsHT100_light':'WJudsg','WJetsHT200_light':'WJudsg','WJetsHT400_light':'WJudsg','WJetsHT600_light':'WJudsg', 'WJetsHT0_c':'WJc','WJetsHT100_c':'WJc','WJetsHT200_c':'WJc','WJetsHT400_c':'WJc','WJetsHT600_c':'WJc', 'WJetsHT0_1b':'WJ1b','WJetsHT100_1b':'WJ1b','WJetsHT200_1b':'WJ1b','WJetsHT400_1b':'WJ1b','WJetsHT600_1b':'WJ1b','WJetsHT0_2b':'WJ2b','WJetsHT100_2b':'WJ2b','WJetsHT200_2b':'WJ2b','WJetsHT400_2b':'WJ2b','WJetsHT600_2b':'WJ2b','ST_s':'ST','ST_t':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST','WQQ':'V','ZQQ':'V','QCD500udsg':'QCDlight','QCD700udsg':'QCDlight','QCD1000udsg':'QCDlight','QCD1500udsg':'QCDlight','QCD2000udsg':'QCDlight', 'QCD500cc':'QCDc','QCD700cc':'QCDc','QCD1000cc':'QCDc','QCD1500cc':'QCDc','QCD2000cc':'QCDc', 'QCD5001b':'QCD1b','QCD7001b':'QCD1b','QCD10001b':'QCD1b','QCD15001b':'QCD1b','QCD20001b':'QCD1b','QCD5002b':'QCD2b','QCD7002b':'QCD2b','QCD10002b':'QCD2b','QCD15002b':'QCD2b','QCD20002b':'QCD2b','WJets':'V','ZJets':'V','WZ':'VV','ZZ':'VV','WW':'VV','HH2000':'HH','QCD300udsg':'QCDlight','QCD300cc':'QCDc','QCD3001b':'QCD1b','QCD3002b':'QCD2b','TTHT600':'TTHT','TTHT800':'TTHT','TTHT1200':'TTHT','TTHT2500':'TTHT','TTHT0':'TTHT'}
+
+#!! Here the order and the groups that will go in the plots
+setup: QCDlight,QCDc,QCD1b,QCD2b,TTHT,V,VV
+#,QCD1b
+#,QCDc,QCD1b,QCD2b,VV
+#WJudsg,WJc,WJ1b,WJ2b,TT
+setupLog: QCDlight,QCDc,QCD1b,QCD2b,TTHT,V,VV
+#,QCD1b
+#QCDlight,QCDc,QCD1b,QCD2b,VV
+
+#!! Colors dictionary and legend
+colorDict: {'QCDlight':401,'QCDc':402,'QCD2b':5,'QCD1b':41,'TT':596,'ST':840,'VV':922,'V':18,'ZZb':18,'WZb':18,'ZH':2,'DYlc':401,'':1,'TTHT':596}
+typLegendDict: {'DYlight':'Z+udscg','DYc':'Z + c#bar{c}','DYlc':'Z+udscg','DY2b':'Z + b#bar{b}','DY1b':'Z + b','WJudsg':'W+udscg','WJ1b':'W + b','WJ2b':'W + b#bar{b}','WJc':'W+udscg','TT':'t#bar{t}','ST':'Single top','VV':'VV','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCD':'QCD','Overlay':'X(2 TeV) to HH','QCDlight':'QCD+udscg','QCDc':'QCD + c#bar{c}','QCD2b':'QCD + b#bar{b}','QCD1b':'QCD + b','V':'W+Jets','VV':'VV','':'','TTHT':'t#bar{t}'}
+
+#!! Add overflow bin in the plots
+addOverFlow = False
+
+#!! List of regions to be submitted in case of bacth submission
+List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
+
+#!! Possibility to add an additional blinding cut for the plot
+#addBlindingCut = EVENT.run < 203002
+
+#!! Variables definition
+leptons_var:vleptons_ptMax,vleptons_etaMax
+met_var:Jet0CSV,Jet1CSV,Jet2CSV,Jet3CSV,Jet0pt,Jet1pt,Jet2pt,Jet3pt,met_pt,maxCSV,minCSV
+boosted_var:jet1pt,jet2pt,jet1eta,jet2eta,jet1mass,jet2mass,jet1bbtag,jet2bbtag,jet1tau21,jet2tau21
+
+#!! Additional global variables
+BDT_plot_blind: False
+BDT_plot_log: False
+plot_mass = HH2000 
+Normalize = False
+
+#!! -----------------------
+#!! Plot regions definition
+#!! -----------------------
+
+[Plot:SR]
+#!! which data to compare to
+Datas: JetHT
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|boosted_var!>
+#Signal: <!Plot_general|plot_mass!>
+log: True
+blind: False
+
+[Plot:CR_tau_inverted]
+#!! which data to compare to
+Datas: JetHT
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|boosted_var!>
+#Signal: <!Plot_general|plot_mass!>
+log: True
+blind: False
+
+#!! Plot name should match the cut name in the cuts config
+[Plot:dy_heppy_test]
+#!! which data to compare to
+Datas: Zee
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|met_var!>
+Signal: <!Plot_general|plot_mass!>
+#!! log scale
+log: False
+#!! apply blinding cut
+blind: False
+
+
+[Plot:tt_kinematic]
+Datas: Zm
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|met_var!>
+log: False
+blind: False
+Signal: <!Plot_general|plot_mass!>
+
+[Plot:tt_btag]
+Datas: Zm
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|met_var!>
+log: False
+blind: False
+
+[Plot:tt_kinematic_trigger2CSV]
+Datas: Zm
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|met_var!>
+log: False
+blind: False
+Signal: <!Plot_general|plot_mass!>
+
+[Plot:tt_btag_trigger2CSV]
+Datas: Zm
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|met_var!>
+log: False
+blind: False
+
+
+#!! which data to compare to
+
+#
