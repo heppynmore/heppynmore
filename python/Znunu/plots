@@ -45,7 +45,9 @@ met_var:met_pt,metPuppi_pt
 higgs_var:Hpt
 bbtag_var:FatjetCA15ungroomed_bbtag
 fatjet_var:FatjetCA15ungroomed_pt
-mt_var:VH_mt 
+mt_var:VH_mt,VH_mtPuppi
+
+allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi
 
 #!! Additional global variables
 BDT_plot_blind: False
