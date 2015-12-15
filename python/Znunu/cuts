@@ -89,6 +89,8 @@ CA15HiggsTagMassSideband = Sum$(<!Obj|CA15HiggsTagMassSideband!>)
 dPhiAK8JetMET  = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>) )
 dPhiCA15JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>) )
 
+dPhiMinAK4JetMET =  Min$(abs(VHbb::deltaPhi(Jet_phi,<!Obj|MET!>_phi))*(1+(9E9*!(Jet_pt>20 && abs(Jet_eta)<2.4))))
+
 #!! --------------------------------
 #!! Event selections
 #!! --------------------------------
@@ -104,7 +106,7 @@ dPhiCA15JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath
 
 #Nominal Preselection(Silvio's Set)
 
-preselection = Vtype == 4 & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Trigger|Znn!>
+preselection = Vtype == 4 & <!Trigger|Znn!> & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Var|dPhiMinAK4JetMET!> > 0.5
 
 
 #SR = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
