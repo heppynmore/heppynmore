@@ -22,7 +22,7 @@ if opts.config =="":
 from myutils import BetterConfigParser, printc, ParseInfo, mvainfo, StackMaker, HistoMaker
 
 print opts.config
-opts.config.append('heppy13TeVconfig/vhbbPlotDef.ini')
+opts.config.append('Znunu/vhbbPlotDef.ini')
 config = BetterConfigParser()
 config.read(opts.config)
 
