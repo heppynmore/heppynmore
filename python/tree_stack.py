@@ -45,6 +45,10 @@ section='Plot:%s'%region
 
 info = ParseInfo(samplesinfo,path)
 
+if os.path.exists("../interface/DrawFunctions_C.so"):
+    print 'ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")'
+    ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")
+
 #----------Histo from trees------------
 def doPlot():
     vars = (config.get(section, 'vars')).split(',')

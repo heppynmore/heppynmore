@@ -43,9 +43,10 @@ List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
 higgs_var:Hpt
 bbtag_var:FatjetCA15ungroomed_bbtag
 fatjet_var:FatjetCA15ungroomed_pt
-mt_var:VH_mt
 mt_var:VH_mt,VH_mtPuppi
+
 allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi
+
 #!! Additional global variables
 BDT_plot_blind: False
 BDT_plot_log: False
