@@ -7,7 +7,7 @@ Zmm = HLT_ZmmHbbAll
 Zee = HLT_ZeeHbbAll
 Wmn = HLT_WmnHbbAll
 Wen = HLT_WenHbbAll
-Znn = HLT_ZnnHbbAll  
+Znn = (isData==1 && (HLT_BIT_HLT_PFMET90_PFMHT90_IDTight_v||HLT_BIT_HLT_PFMET170_NoiseCleaned_v)) || (isData==0 && (HLT_BIT_HLT_PFMET90_PFMHT90_IDLoose_v||HLT_BIT_HLT_PFMET170_NoiseCleaned_v)) 
 
 #Or should this be something like? 
 #HLT_BIT_HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight_v
@@ -18,7 +18,7 @@ Znn = HLT_ZnnHbbAll
 #!! --------------------------------
 [Filter]
 
-MET = Flag_CSCTightHaloFilter & Flag_goodVertices & Flag_eeBadScFilter
+MET = Flag_CSCTightHaloFilter & Flag_goodVertices & Flag_eeBadScFilter & Flag_hbheIsoFilter &  Flag_hbheFilterNew
 #Flag_HBHENoiseFilter and Flag_METFilters broken in V14?  70% efficiency for 2 TeV signal
 
 #!! --------------------------------
@@ -42,6 +42,7 @@ CA15HiggsMassVeto   = !(<!Cut|CA15HiggsMassWindow!>)
 [Obj]
 
 AK4Jet  = Jet_pt                 > 20 & abs(Jet_eta)                < 2.4
+#AK4JetMod = Jet_pt                 > 20 & abs(Jet_eta)                > 3.0
 AK8Jet  = FatjetAK08ungroomed_pt > 20 & abs(FatjetAK08ungroomed_eta) < 2.4
 CA15Jet = FatjetCA15ungroomed_pt > 20 & abs(FatjetCA15ungroomed_eta) < 2.4
 
@@ -49,6 +50,7 @@ highPtAK8Jet  = FatjetAK08ungroomed_pt > 300 & abs(FatjetAK08ungroomed_eta) < 2.
 highPtCA15Jet = FatjetCA15ungroomed_pt > 300 & abs(FatjetCA15ungroomed_eta) < 2.4
 
 MET = met
+#MET = metPuppi
 
 AK8HiggsTag              = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassWindow!>
 CA15HiggsTag             = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassWindow!>
@@ -93,7 +95,19 @@ dPhiCA15JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath
 [Cuts]
 
 #preselection = Vtype == 4 & <!Trigger|Znn!> & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5
-preselection = Vtype == 4                    & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5
+#preselection = Vtype == 4 & <!Filter|MET!> & FatjetAK08ungroomed_tau_21 < 0.6 & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt ># 300 & <!Var|dPhiAK8JetMET!> > 2.5
+
+#preselection = Vtype == 4 & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & Sum$(Jet_pt > 20 & abs(Jet_eta)>3) == 0 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5
+
+#Good Agreement
+#preselection = Vtype == 4 & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5 & Flag_goodVertices & Flag_CSCTightHaloFilter & Flag_HBHENoiseFilter & Flag_hbheIsoFilter & Flag_eeBadScFilter & Flag_hbheFilterNew & Flag_METFilters
+
+#Nominal Preselection(Silvio's Set)
+
+preselection = Vtype == 4 & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Obj|MET!>_pt > 300 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Trigger|Znn!>
+
+
+#SR = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
 #SR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
 CR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSideband!> == 1
 
@@ -184,7 +198,7 @@ CR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSideband!> == 1
 # ZeeCR = <!ZHbb|preselection!>   <!ZHbb|zWindow!> & 
 
 # #!! Test with heppy ntuple
-# dy_heppy_test = <!ZHbb|zWindow!>& <!ZHeebb|addCuts!> & vLeptons_pt[0]>50 & vLeptons_pt[1]>50 & V_pt>100 
+#dy_heppy_test = <!ZHbb|zWindow!>& <!ZHeebb|addCuts!> & vLeptons_pt[0]>50 & vLeptons_pt[1]>50 & V_pt>100 & FatjetAK08ungroomed_tau_21 < 0.6 
 # # & HLT_ZeeHbbAll == 1
 # # & Jet_btagCSV[hJCidx[0]]>0.9&Jet_btagCSV[hJCidx[1]]>0.7
 
