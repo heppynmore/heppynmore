@@ -111,6 +111,7 @@ preselection = Vtype == 4 & <!Trigger|Znn!> & <!Filter|MET!> & <!Mult|AK8Jet!> =
 
 #SR = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
 #SR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
+blindSR      = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> & isData==0 == 1
 CR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSideband!> == 1
 
 
