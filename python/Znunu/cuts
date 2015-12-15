@@ -7,7 +7,7 @@ Zmm = HLT_ZmmHbbAll
 Zee = HLT_ZeeHbbAll
 Wmn = HLT_WmnHbbAll
 Wen = HLT_WenHbbAll
-Znn = (isData==1 && (HLT_BIT_HLT_PFMET90_PFMHT90_IDTight_v||HLT_BIT_HLT_PFMET170_NoiseCleaned_v)) || (isData==0 && (HLT_BIT_HLT_PFMET90_PFMHT90_IDLoose_v||HLT_BIT_HLT_PFMET170_NoiseCleaned_v)) 
+Znn = (HLT_BIT_HLT_PFMET170_NoiseCleaned_v||max(Alt$(HLT_BIT_HLT_PFMET90_PFMHT90_IDTight_v,HLT_BIT_HLT_PFMET90_PFMHT90_IDLoose_v),Alt$(HLT_BIT_HLT_PFMET90_PFMHT90_IDLoose_v,HLT_BIT_HLT_PFMET90_PFMHT90_IDTight_v)))
 
 #Or should this be something like? 
 #HLT_BIT_HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight_v
@@ -49,8 +49,8 @@ CA15Jet = FatjetCA15ungroomed_pt > 20 & abs(FatjetCA15ungroomed_eta) < 2.4
 highPtAK8Jet  = FatjetAK08ungroomed_pt > 300 & abs(FatjetAK08ungroomed_eta) < 2.4
 highPtCA15Jet = FatjetCA15ungroomed_pt > 300 & abs(FatjetCA15ungroomed_eta) < 2.4
 
-MET = met
-#MET = metPuppi
+#MET = met
+MET = metPuppi
 
 AK8HiggsTag              = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassWindow!>
 CA15HiggsTag             = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassWindow!>
