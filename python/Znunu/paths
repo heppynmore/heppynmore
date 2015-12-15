@@ -2,13 +2,13 @@
 #!! List of the config you want to use
 #!! The number of config has to be exaclty 7
 #!! The list only support spaces between configs
-List = paths general cuts training datacard plots lhe_weight
+List = paths general cuts training datacard plots lhe_weight samples_nosplit.cfg vhbbPlotDef.ini
 
 [Directories]
 #!! just a variable
-Dname:heppynmore
+Dname:hnm
 #!! Working Directory
-Wdir=/uscms_data/d2/kreis/Hbb/eth/CMSSW_7_4_15/src/
+Wdir=/uscms/home/bortigno/nobackup/vhbb13tev/heppynmore_001_cmssw747/src/
 samplepath = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14
 t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/tmp
 scratch = <!Directories|vhbbpath!>/
