@@ -9,6 +9,10 @@ warnings.filterwarnings( action='ignore', category=RuntimeWarning, message='crea
 from optparse import OptionParser
 from myutils import BetterConfigParser, Sample, progbar, printc, ParseInfo, Rebinner, HistoMaker
 
+if os.path.exists("../interface/DrawFunctions_C.so"):
+    print 'ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")'
+    ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")
+
 #--CONFIGURE---------------------------------------------------------------------
 argv = sys.argv
 parser = OptionParser()

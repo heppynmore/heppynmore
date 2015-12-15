@@ -36,7 +36,7 @@ library=<!Directories|vhbbpath!>/interface/VHbbNameSpace_h.so
 
 #!! for the likelihood
 [AngularLike]
-backgrounds = ['Zbb','Zudsg','ttbar','ZZ']
+backgrounds = ['Zbb','Zudsg','ttbar','Wudsg','ZZ']
 yields = {'Zbb':584.8,'Zudsg':881.61,'ttbar':135.7,'ZZ':44.04,'Sig':5.13}
 
 #!! --------------------------
@@ -106,61 +106,101 @@ DYudsg: 'Zudsg','Zudsg1J','Zudsg2J','Zudsg3J','Zudsg4J','ZudsgHT200400','ZudsgHT
 DYc:    'Zcc',  'Zcc1J',  'Zcc2J',  'Zcc3J',  'Zcc4J',  'ZccHT200400',  'ZccHT400',  'Zcc5070',  'Zcc70100',  'Zcc100',  'Zcc180'  ,'Zcc100ext'  
 DY1b:   'Z1b',  'Z1b1J',  'Z1b2J',  'Z1b3J',  'Z1b4J',  'Z1bHT200400',  'Z1bHT400',  'Z1b5070',  'Z1b70100',  'Z1b100',  'Z1b180'  ,'Z1b100ext'  
 DY2b:   'Z2b',  'Z2b1J',  'Z2b2J',  'Z2b3J',  'Z2b4J',  'Z2bHT200400',  'Z2bHT400',  'Z2b5070',  'Z2b70100',  'Z2b100',  'Z2b180'  ,'Z2b100ext'  
-WJetsHT0:   'WJetsHT0_light','WJetsHT0_c','WJetsHT0_1b','WJetsHT0_2b'
-WJetsHT100: 'WJetsHT100_light','WJetsHT100_c','WJetsHT100_1b','WJetsHT100_2b'
-WJetsHT200: 'WJetsHT200_light','WJetsHT200_c','WJetsHT200_1b','WJetsHT200_2b'
-WJetsHT400: 'WJetsHT400_light','WJetsHT400_c','WJetsHT400_1b','WJetsHT400_2b'
-WJetsHT600: 'WJetsHT600_light','WJetsHT600_c','WJetsHT600_1b','WJetsHT600_2b'
 
+DYlight: 'Zudsg'
+DYc: 'Zcc'
+DY1b: 'Z1b'
+DY2b: 'Z2b'
+
+QCDlight: 'QCD200udsg','QCD300udsg','QCD500udsg','QCD1000udsg','QCD1500udsg','QCD2000udsg' 
+QCDc: 'QCD200cc','QCD300cc','QCD500cc','QCD1000cc','QCD1500cc','QCD2000cc'
+QCD1b: 'QCD2001b','QCD3001b','QCD5001b','QCD10001b','QCD15001b','QCD20001b'
+QCD2b: 'QCD2002b','QCD3002b','QCD5002b','QCD10002b','QCD15002b','QCD20002b'
+
+QCDHT200: 'QCD200udsg','QCD200cc','QCD2001b','QCD2002b'
+QCDHT300: 'QCD300udsg','QCD300cc','QCD3001b','QCD3002b'
 QCDHT500: 'QCD500udsg','QCD500cc','QCD5001b','QCD5002b'
 QCDHT700: 'QCD700udsg','QCD700cc','QCD7001b','QCD7002b'
 QCDHT1000: 'QCD1000udsg','QCD1000cc','QCD10001b','QCD10002b'
 QCDHT1500: 'QCD1500udsg','QCD1500cc','QCD15001b','QCD15002b'
 QCDHT2000: 'QCD2000udsg','QCD2000cc','QCD20001b','QCD20002b'
 
-TTHT : 'TTHT600','TTHT800','TTH1200','TTHT2500','TTHT0'
+Wudsg: 'WJetsHT0_light','WJetsHT100_light','WJetsHT200_light','WJetsHT400_light','WJetsHT600_light' 
+Wc: 'WJetsHT0_c','WJetsHT100_c','WJetsHT200_c','WJetsHT400_c','WJetsHT600_c'
+W1b: 'WJetsHT0_1b','WJetsHT100_1b','WJetsHT200_1b','WJetsHT400_1b','WJetsHT600_1b'
+W2b: 'WJetsHT0_2b','WJetsHT100_2b','WJetsHT200_2b','WJetsHT400_2b','WJetsHT600_2b'
 
-Diboson:'ZZb','WZb','ZZlight','WZlight','AltZZb','AltWZb','AltZZlight','AltWZlight','WW','ZZ','WZ'
-Top:    'TT_FullLept','TT_SemiLept'
-s_Top:  'ST_s','ST_t','ST_tW_antitop','ST_tW_top'
-DrellYan: <!Samples|DYudsg!>,<!Samples|DYc!>,<!Samples|DY1b!>,<!Samples|DY2b!>
-QCD : <!Samples|QCDHT500!>,<!Samples|QCDHT700!>,<!Samples|QCDHT1000!>,<!Samples|QCDHT1500!>,<!Samples|QCDHT2000!>
+WJetsHT0: 'WJetsHT0_light','WJetsHT0_c','WJetsHT0_1b','WJetsHT0_2b'
+WJetsHT100: 'WJetsHT100_light','WJetsHT100_c','WJetsHT100_1b','WJetsHT100_2b'
+WJetsHT200: 'WJetsHT200_light','WJetsHT200_c','WJetsHT200_1b','WJetsHT200_2b'
+WJetsHT400: 'WJetsHT400_light','WJetsHT400_c','WJetsHT400_1b','WJetsHT400_2b'
+WJetsHT600: 'WJetsHT600_light','WJetsHT600_c','WJetsHT600_1b','WJetsHT600_2b'
+ 
+Zjudsg: 'ZJetsHT100to200_light','ZJetsHT200to400_light','ZJetsHT400to600_light','ZJetsHT600toInf_light'
+Zjc: 'ZJetsHT100to200_c','ZJetsHT200to400_c','ZJetsHT400to600_c','ZJetsHT600toInf_c'
+Zj1b: 'ZJetsHT100to200_1b','ZJetsHT200to400_1b','ZJetsHT400to600_1b','ZJetsHT600toInf_1b'
+Zj2b: 'ZJetsHT100to200_2b','ZJetsHT200to400_2b','ZJetsHT400to600_2b','ZJetsHT600toInf_2b'
+
+ZJetsHT100: 'ZJetsHT100to200_light','ZJetsHT100to200_c','ZJetsHT100to200_1b','ZJetsHT100to200_2b'
+ZJetsHT200: 'ZJetsHT200to400_light','ZJetsHT200to400_c','ZJetsHT200to400_1b','ZJetsHT200to400_2b'
+ZJetsHT400: 'ZJetsHT400to600_light','ZJetsHT400to600_c','ZJetsHT400to600_1b','ZJetsHT400to600_2b'
+ZJetsHT600: 'ZJetsHT600toInf_light','ZJetsHT600toInf_c','ZJetsHT600toInf_1b','ZJetsHT600toInf_2b'
+
+#TT: 'TT_FullLept','TT_SingleLeptFromT','TT_SingleLeptFromTbar'
+
+Diboson:'WW','WZ','ZZ'
+#Diboson:'ZZb','WZb','ZZlight','WZlight','AltZZb','AltWZb','AltZZlight','AltWZlight','WW'
+#Top:'TT_FullLept','TT_SingleLeptFromT','TT_SingleLeptFromTbar' 
+Top:'TTincAMC'
+s_Top:'ST_s','ST_t','ST_tW_antitop','ST_tW_top'
+QCD : <!Samples|QCDlight!>,<!Samples|QCDc!>,<!Samples|QCD1b!>,<!Samples|QCD2b!>
+DrellYan: <!Samples|DYlight!>,<!Samples|DYc!>,<!Samples|DY1b!>,<!Samples|DY2b!>
 WJets : <!Samples|WJetsHT0!>,<!Samples|WJetsHT100!>,<!Samples|WJetsHT200!>,<!Samples|WJetsHT400!>,<!Samples|WJetsHT600!>
+ZJets : <!Samples|ZJetsHT100!>,<!Samples|ZJetsHT200!>,<!Samples|ZJetsHT400!>,<!Samples|ZJetsHT600!>
 DrellYan_nolhe: <!Samples|DYudsg_nolhe!>,<!Samples|DYc_nolhe!>,<!Samples|DY1b_nolhe!>,<!Samples|DY2b_nolhe!>
-
-allSIG: 'ZH110','ZH115','ZH120','ZH125','ZH130','ZH135'
-allBKG: <!Samples|DrellYan!>,<!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
+allSIG: 'ZH110','ZH115','ZH120','ZH125','ZH130','ZH135','Zprime'
+allBKG: <!Samples|DrellYan!>,<!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>,<!Samples|WJets!>,<!Samples|ZJets!>,<!Samples|QCD!>
 allBKG_nolhe: <!Samples|DrellYan_nolhe!>,<!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
-
 allBKG_ZZsplit: <!Samples|DrellYan!>,<!Samples|Diboson_split!>,<!Samples|Top!>,<!Samples|s_Top!>
 #allBKG: <!Samples|Diboson!>,<!Samples|Top!>,<!Samples|s_Top!>
 BKG_VV_training: <!Samples|DrellYan!>,<!Samples|Top!>,<!Samples|s_Top!>,'WW','WZ'
 
 Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135':'ZH','ZH140':'ZH','ZH145':'ZH','ZH150':'ZH',\
+        'ZprimeM800':'Zprime','ZprimeM1400':'Zprime','ZprimeM2000':'Zprime',\
         'Zudsg':'DYlight','Zudsg1J':'DYlight','Zudsg2J':'DYlight','Zudsg3J':'DYlight','Zudsg4J':'DYlight',\
         'ZudsgHT200400':'DYlight','ZudsgHT400':'DYlight','Zudsg5070':'DYlight','Zudsg5070ext':'DYlight','Zudsg70100':'DYlight','Zudsg100':'DYlight','Zudsg100ext':'DYlight','Zudsg180':'DYlight',\
-        'Zcc':'DYlight','Zcc1J':'DYlight','Zcc2J':'DYlight','Zcc3J':'DYlight','Zcc4J':'DYlight',\
-        'ZccHT200400':'DYlight','ZccHT400':'DYlight','Zcc5070':'DYlight','Zcc5070ext':'DYlight','Zcc70100':'DYlight','Zcc100':'DYlight','Zcc100ext':'DYlight','Zcc180':'DYlight',\
+        
+	'Zcc':'DYc','Zcc1J':'DYc','Zcc2J':'DYc','Zcc3J':'DYc','Zcc4J':'DYc',\
+        'ZccHT200400':'DYc','ZccHT400':'DYc','Zcc5070':'DYc','Zcc5070ext':'DYc','Zcc70100':'DYc','Zcc100':'DYc','Zcc100ext':'DYc','Zcc180':'DYc',\
         'Z1b':'DY1b','Z1b1J':'DY1b','Z1b2J':'DY1b','Z1b3J':'DY1b','Z1b4J':'DY1b',\
         'Z2b':'DY2b','Z2b1J':'DY2b','Z2b2J':'DY2b','Z2b3J':'DY2b','Z2b4J':'DY2b',\
-	'WJetsHT0_light':'WJudsg','WJetsHT100_light':'WJudsg','WJetsHT200_light':'WJudsg','WJetsHT400_light':'WJudsg','WJetsHT600_light':'WJudsg', \
-        'WJetsHT0_c':'WJc','WJetsHT100_c':'WJc','WJetsHT200_c':'WJc','WJetsHT400_c':'WJc','WJetsHT600_c':'WJc', \
-        'WJetsHT0_1b':'WJ1b','WJetsHT100_1b':'WJ1b','WJetsHT200_1b':'WJ1b','WJetsHT400_1b':'WJ1b','WJetsHT600_1b':'WJ1b',\
-        'WJetsHT0_2b':'WJ2b','WJetsHT100_2b':'WJ2b','WJetsHT200_2b':'WJ2b','WJetsHT400_2b':'WJ2b','WJetsHT600_2b':'WJ2b',\
-	'QCD500udsg':'QCDlight','QCD700udsg':'QCDlight','QCD1000udsg':'QCDlight','QCD1500udsg':'QCDlight','QCD2000udsg':'QCDlight',\
-	'QCD500cc':'QCDc','QCD700cc':'QCDc','QCD1000cc':'QCDc','QCD1500cc':'QCDc','QCD2000cc':'QCDc',\
-	'QCD5001b':'QCD1b','QCD7001b':'QCD1b','QCD10001b':'QCD1b','QCD15001b':'QCD1b','QCD20001b':'QCD1b',\
- 	'QCD5002b':'QCD2b','QCD7002b':'QCD2b','QCD10002b':'QCD2b','QCD15002b':'QCD2b','QCD20002b':'QCD2b',\
+	#'TT_FullLept':'TT','TT_SingleLeptFromT':'TT','TT_SingleLeptFromTbar':'TT',\
+	#'TTincAMC':'TT',\
+
+	'WJetsHT0_light':'Wudsg','WJetsHT100_light':'Wudsg','WJetsHT200_light':'Wudsg','WJetsHT400_light':'Wudsg','WJetsHT600_light':'Wudsg', \
+        'WJetsHT0_c':'Wc','WJetsHT100_c':'Wc','WJetsHT200_c':'Wc','WJetsHT400_c':'Wc','WJetsHT600_c':'Wc', \
+        'WJetsHT0_1b':'W1b','WJetsHT100_1b':'W1b','WJetsHT200_1b':'W1b','WJetsHT400_1b':'W1b','WJetsHT600_1b':'W1b',\
+        'WJetsHT0_2b':'W2b','WJetsHT100_2b':'J2b','WJetsHT200_2b':'W2b','WJetsHT400_2b':'W2b','WJetsHT600_2b':'W2b',\
         #'WJ2b':'WJ2b','WJ1b':'WJ1b','WJc':'WJc','WJudsg':'WJudsg',\
+		
+	'ZJetsHT100to200_light':'Zjudsg','ZJetsHT200to400_light':'Zjudsg','ZJetsHT400to600_light':'Zjudsg','ZJetsHT600toInf_light':'Zjudsg',\
+        'ZJetsHT100to200_c':'Zjc','ZJetsHT200to400_c':'Zjc','ZJetsHT400to600_c':'Zjc','ZJetsHT600toInf_c':'Zjc',\
+        'ZJetsHT100to200_1b':'Zj1b','ZJetsHT200to400_1b':'Zj1b','ZJetsHT400to600_1b':'Zj1b','ZJetsHT600toInf_1b':'Zj1b',\
+        'ZJetsHT100to200_2b':'Zj2b','ZJetsHT200to400_2b':'Zj2b','ZJetsHT400to600_2b':'ZjJ2b','ZJetsHT600toInf_2b':'Zj2b',\
+
+	'QCD200udsg':'QCDlight','QCD300udsg':'QCDlight','QCD500udsg':'QCDlight','QCD700udsg':'QCDlight','QCD1000udsg':'QCDlight','QCD1500udsg':'QCDlight','QCD2000udsg':'QCDlight',\
+        'QCD200cc':'QCDc','QCD300cc':'QCDc','QCD500cc':'QCDc','QCD700cc':'QCDc','QCD1000cc':'QCDc','QCD1500cc':'QCDc','QCD2000cc':'QCDc',\
+        'QCD2001b':'QCD1b','QCD3001b':'QCD1b','QCD5001b':'QCD1b','QCD7001b':'QCD1b','QCD10001b':'QCD1b','QCD15001b':'QCDc','QCD20001b':'QCDc',\
+        'QCD2002b':'QCD2b','QCD3002b':'QCD2b','QCD5002b':'QCD2b','QCD7002b':'QCD2b','QCD10002b':'QCD2b','QCD15002b':'QCD2b','QCD20002b':'QCD2b',\
+
         'Z1bHT200400':'DY1b','Z1bHT400':'DY1b','Z1b5070':'DY1b','Z1b5070ext':'DY1b','Z1b70100':'DY1b','Z1b100':'DY1b','Z1b100ext':'DY1b','Z1b180':'DY1b',\
         'Z2bHT200400':'DY2b','Z2bHT400':'DY2b','Z2b5070':'DY2b','Z2b5070ext':'DY2b','Z2b70100':'DY2b','Z2b100':'DY2b','Z2b100ext':'DY2b','Z2b180':'DY2b',\
-        'ZZb':'VVb','WW':'VVlight','WZb':'VVb','ZZlight':'VVlight','WZlight':'VVlight','ZZlight':'VVlight',\
-	'ZZ':'VV','WZ':'VV','WW':'VV',\  
-        'TT':'TT,','TT1':'TT','TT2':'TT','TT_FullLept':'TT','TT_SemiLept':'TT','ST_s':'ST','ST_t':'ST','AltST_tW':'ST','STbar_s':'ST','ST_tW_antitop':'ST','ST_tW_top':'ST',\
-	'TTHT600':'TTHT','TTHT800':'TTHT','TTHT1200':'TTHT','TTHT2500':'TTHT','TTHT0':'TTHT'\
-	'WJets':'V','ZJets':'V',\
-        'Zee':'Data','Zmm':'Data','Zm':'Data','JetHT':'Data',\
-	'HH1000':'HH','HH1200':'HH','HH1600':'HH','HH2000':'HH','HH2500':'HH','HH3000':'HH','HH3500':'HH','HH4000':'HH',\
+        #'ZZb':'VVb','WW':'VVlight','WZb':'VVb','ZZlight':'VVlight','WZlight':'VVlight','ZZlight':'VVlight',\
+	'WW':'Diboson','WZ':'Diboson','ZZ':'Diboson',\
+	#'TT_FullLept':'Top','TT_SingleLeptFromT':'Top','TT_SingleLeptFromTbar':'Top',\
+	'TTincAMC':'Top',\
+        'ST_s':'s_Top','ST_t':'s_Top','AltST_tW':'s_Top','STbar_s':'s_Top','ST_tW_antitop':'s_Top','ST_tW_top':'s_Top',\
+        'Zee':'Data','Zmm':'Data', 'Zm':'Data', 'met':'Data',\
         'AltZZlight':'VVlight','AltZZb':'VVb','AltWZlight':'VVlight','AltWZb':'VVb'}
 
 [Weights]
@@ -180,7 +220,8 @@ Group: {'ZH110':'ZH','ZH115':'ZH','ZH120':'ZH','ZH125':'ZH','ZH130':'ZH','ZH135'
 #weightF: (PUweight*lheWeight)
 
 #weightF: 1
-weightF: puWeight
+#weightF: (puWeight*sign(genWeight))
+weightF: sign(genWeight) * weight2( nTrueInt )
 weightF_sys_UP: 1
 weightF_sys_DOWN: 1
 weightF_QCD_UP: 1

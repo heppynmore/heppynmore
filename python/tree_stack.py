@@ -22,7 +22,7 @@ if opts.config =="":
 from myutils import BetterConfigParser, printc, ParseInfo, mvainfo, StackMaker, HistoMaker
 
 print opts.config
-opts.config.append('heppy13TeVconfig/vhbbPlotDef.ini')
+opts.config.append('Znunu/vhbbPlotDef.ini')
 config = BetterConfigParser()
 config.read(opts.config)
 
@@ -44,6 +44,10 @@ path = config.get('Directories','plottingSamples')
 section='Plot:%s'%region
 
 info = ParseInfo(samplesinfo,path)
+
+if os.path.exists("../interface/DrawFunctions_C.so"):
+    print 'ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")'
+    ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")
 
 #----------Histo from trees------------
 def doPlot():
