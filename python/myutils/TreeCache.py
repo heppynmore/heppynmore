@@ -43,6 +43,7 @@ class TreeCache:
         theHash = hashlib.sha224('%s_s%s_%s' %(sample,checksum,self.minCut)).hexdigest()
         self.__hashDict[theName] = theHash
         tmpSource = '%s/tmp_%s.root'%(self.__tmpPath,theHash)
+        print('From: %s' %tmpSource)
         if self.__doCache and self.file_exists(tmpSource):
             return
         output = ROOT.TFile.Open(tmpSource,'create')
