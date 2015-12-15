@@ -20,7 +20,6 @@ task=$3             # the task
 job_id=$4           # needed for train optimisation. @TO FIX: it does not have a unique meaning
 additional_arg=$5   # needed for train optimisation. @TO FIX: it does not have a unique meaning
 
-unset TMPDIR
 
 #-------------------------------------------------
 # Check the number of input arguments
@@ -32,6 +31,15 @@ if [ $# -lt 3 ]
     echo " ---------------------------------- "
     echo " Usage : ./runAll.sh sample analysis task"
     echo " ---------------------------------- "
+    exit
+fi
+
+if [ ${TMPDIR} != "" ]
+    then
+    MY_TMPDIR=${TMPDIR}
+    unset TMPDIR
+else
+    echo "@ERROR: TMPDIR not set."
     exit
 fi
 
@@ -100,7 +108,8 @@ configList=${input_configs// / -C ${analysis}\/}                     # replace t
 echo "@LOG : The config list you are using is"
 echo ${configList}
 
-export TMPDIR=/eos/uscms/store/group/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/tmp/
+
+export TMPDIR=${MY_TMPDIR}
 
 #------------------------------------
 #Run the scripts
