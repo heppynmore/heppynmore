@@ -27,6 +27,9 @@ parser.add_option("-L","--local",dest="local", default=True,
 (opts, args) = parser.parse_args(argv)
 if opts.config =="":
         opts.config = "config"
+if os.path.exists("../interface/DrawFunctions_C.so"):
+    print 'ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")'
+    ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")
 
 #Import after configure to get help message
 from myutils import BetterConfigParser, mvainfo, ParseInfo, TreeCache
