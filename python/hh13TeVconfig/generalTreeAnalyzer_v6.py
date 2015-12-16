@@ -79,8 +79,6 @@ def open_files(file_name) : #opens files to run on
     final_list = []
     for i in range(ff_n):  # this is the length of the file
         list_file.append(g.readline().split())
-#    s = '/eos/uscms/store/user/lpctlbsm/yxin/EDM/Jet/EDM-RUNA-JEC-Tau4/7a58fc74a3d8b4367ab5f60ff1d959fe/'
-#    s = '/eos/uscms/store/user/lfeng7/Data_2012/Jet/EDM-RUNA-JEC-Tau4/7a58fc74a3d8b4367ab5f60ff1d959fe/'
     s = options.inputFile
 
     for i in range(len(list_file)):
@@ -99,31 +97,11 @@ def deltaR( particle, jet ) : #gives deltaR between two particles
     return deltaRHere
 
 print sys.argv[1]
-#f1 = ROOT.TFile(sys.argv[1])
-#print inputfile
-#f1 = ROOT.TFile( open_files(inputfile) )
 
 f =  ROOT.TFile(outputfilename, 'recreate')
 
 f.cd()
 
-#fjUngroomedPt = array('f', [-1.0])
-#fjUngroomedEta = array('f', [-1.0])
-#fjUngroomedPhi = array('f', [-1.0])
-#fjUngroomedMass = array('f', [-1.0])
-#fjUngroomedTau1 = array('f', [-1.0])
-#fjUngroomedTau2 = array('f', [-1.0])
-#fjUngroomedBbTag = array('f', [-1.0])
-#fjPrunedPt = array('f', [-1.0])
-#fjPrunedEta = array('f', [-1.0])
-#fjPrunedPhi = array('f', [-1.0])
-#fjPrunedMass = array('f', [-1.0])
-#sjPrunedPt = array('f', [-1.0])
-#sjPrunedEta = array('f', [-1.0])
-#sjPrunedPhi = array('f', [-1.0])
-#sjPrunedMass = array('f', [-1.0])
-#sjPrunedBtag = array('f', [-1.0])
-#hltMatch = array('f', [-1.0])
 
 myTree =  ROOT.TTree('myTree', 'myTree')
 
@@ -219,6 +197,10 @@ j25b = ROOT.TH1F("j25b", "Jet 2 Mass Yes Mass Cut Yes Tau21 BB Tag 50", 100, 100
 j26b = ROOT.TH1F("j26b", "Jet 2 Mass No Mass Cut No Tau21 Subjet B Tag 50", 100, 0, 500)
 j27b = ROOT.TH1F("j27b", "Jet 2 Mass No Mass Cut No Tau21 BB Tag 50", 100, 0, 500)
 
+njet = ROOT.TH1F("njet", "Number of jet with pt > 30 |eta| < 2.4, passing the trigger selection", 15., 0, 15)
+jet_H1_idx  = ROOT.TH1F("jet_H1_idx","idx selected H1 ",   15., 0, 15)
+jet_H2_idx = ROOT.TH1F("jet_H2_idx","idx selected H2 ",   15., 0, 15)
+
 count = 0
 for i in range(num1, num2):
     files = files_list[i]
@@ -227,41 +209,6 @@ for i in range(num1, num2):
     treeMine  = f1.Get('tree')
     nevent = treeMine.GetEntries();
 
-#    fjUngroomedPt.Delete()
-#    fjUngroomedEta.Delete()
-#    fjUngroomedPhi.Delete()
-#    fjUngroomedMass.Delete()
-#    fjUngroomedTau1.Delete()
-#    fjUngroomedTau2.Delete()
-#    fjUngroomedBbTag.Delete()
-#    fjPrunedPt.Delete()
-#    fjPrunedEta.Delete()
-#    fjPrunedPhi.Delete()
-#    fjPrunedMass.Delete()
-#    sjPrunedPt.Delete()
-#    sjPrunedEta.Delete()
-#    sjPrunedPhi.Delete()
-#    sjPrunedMass.Delete()
-#    sjPrunedBtag.Delete()
-#    hltMatch.Delete()
-
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_pt", fjUngroomedPt)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_eta", fjUngroomedEta)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_phi", fjUngroomedPhi)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_mass", fjUngroomedMass)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_tau1", fjUngroomedTau1)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_tau2", fjUngroomedTau2)
-#    treeMine.SetBranchAddress( "FatjetAK08ungroomed_bbtag", fjUngroomedBbTag)
-#    treeMine.SetBranchAddress( "FatjetAK08pruned_pt", fjPrunedPt)
-#    treeMine.SetBranchAddress( "FatjetAK08pruned_eta", fjPrunedEta)
-#    treeMine.SetBranchAddress( "FatjetAK08pruned_phi", fjPrunedPhi)
-#    treeMine.SetBranchAddress( "FatjetAK08pruned_mass", fjPrunedMass)
-#    treeMine.SetBranchAddress( "SubjetAK08pruned_pt", sjPrunedPt)
-#    treeMine.SetBranchAddress( "SubjetAK08pruned_eta", sjPrunedEta)
-#    treeMine.SetBranchAddress( "SubjetAK08pruned_phi", sjPrunedPhi)
-#    treeMine.SetBranchAddress( "SubjetAK08pruned_mass", sjPrunedMass)
-#    treeMine.SetBranchAddress( "SubjetAK08pruned_btag", sjPrunedBtag)
-#    treeMine.SetBranchAddress( "HLT_BIT_HLT_PFHT900_v", hltMatch)
 
     print "Start looping"
     for j in range(0,nevent):
@@ -299,79 +246,54 @@ for i in range(num1, num2):
 	if triggerpass[0] < 1:
             continue
         jets = []
-        for j in range(len(fjPrunedPt)):
-            jettemp = ROOT.TLorentzVector()
-            jettemp.SetPtEtaPhiM(fjPrunedPt[j], fjPrunedEta[j], fjPrunedPhi[j], fjPrunedMass[j])
-            jets.append(jettemp)
-
-#	print jets[0].Pt()
-#	print jets[1].Pt()
-
-#	ht = 0.
-#	for j in jets:
-#		ht += j.Pt()
-#	print ht
-
-#	if ht < 900:
-#		continue
-
-	if len(jets) < 2:
-		continue
-	
-	dijetm = (jets[0] + jets[1]).M()
-        #dijet selection
-	c0.Fill(dijetm)
-	#two jets pt > 30
-	if jets[0].Pt() < 30:
-		continue
-	
-	if jets[1].Pt() < 30:
-		continue
-	c1.Fill(dijetm) 
-	
-        #two jets |eta| < 2.5
-	if abs(jets[0].Eta()) > 2.5:
-		continue
-
-	if abs(jets[1].Eta()) > 2.5:
-		continue
-	c2.Fill(dijetm) 
-
-	#|deltaeta between jet 1 and 2| < 1.3
-	if abs(jets[0].Eta() - jets[1].Eta()) > 1.3:
-		continue
-	c3.Fill(dijetm) 
-
-	#dijetmass > 890
-	if (jets[0] + jets[1]).M() < 1000:
-		continue
-	c4.Fill(dijetm) 
-
-
-	#mass cut
-        jet1pmass[0] = jets[0].M()
-	jet2pmass[0] = jets[1].M()
-
-	passjet1mass = 0
-	passjet2mass = 0
-
-	if 105 < jet1pmass[0] < 135:
-		passjet1mass +=1
-		c5.Fill(dijetm) 
-	if 105 < jet2pmass[0] < 135:
-		passjet2mass +=1
-	if passjet1mass > 0 and passjet2mass > 0:
-		c6.Fill(dijetm) 
-
-
-        ujets = []
+	jet_tau = []
+	jet_bbtag = []
         for j in range(len(fjUngroomedPt)):
             jettemp = ROOT.TLorentzVector()
             jettemp.SetPtEtaPhiM(fjUngroomedPt[j], fjUngroomedEta[j], fjUngroomedPhi[j], fjUngroomedMass[j])
+	    if jettemp.Pt() > 30. and abs(jettemp.Eta()) < 2.5: 	
+                    jets.append(jettemp)
+		    jet_tau.append(fjUngroomedTau2[j]/fjUngroomedTau1[j])
+		    jet_bbtag.append(fjUngroomedBbTag[j])	
+
+	#look at the jet multiplicity here:
+	njet.Fill(len(jets))
+
+
+	if len(jets) < 2: # two jets with pt > 30 and central 
+		continue
+
+	#dEta selection : selecting the two jets which minimizes the dEta requirement. (to find a better one?)
+	idxH1 =-1
+	idxH2=-1
+	for i in range(0,len(jets)):
+		minDEta= 1.3
+		for j in range(0,len(jets)):
+			if abs(jets[i].Eta() - jets[j].Eta()) < minnDEta:
+				minDEta = abs(jets[i].Eta() - jets[j].Eta())
+				idxH1 = i
+				idxH2 = j
+			
+	if idxH1 < 0 or idxH2 <0 : continue
+	
+	jet_H1_idx.Fill(idxH1)
+	jet_H2_idx.Fill(idxH2)
+	
+	dijetm = (jets[idxH1] + jets[idxH2]).M()
+        #dijet selection
+	c0.Fill(dijetm)
+
+
+
+
+        ujets = []
+        for j in range(len(fjPrunedPt)):
+            jettemp = ROOT.TLorentzVector()
+            jettemp.SetPtEtaPhiM(fjPrunedPt[j], fjPrunedEta[j], fjPrunedPhi[j], fjPrunedMass[j])
             ujets.append(jettemp)
 
-	j1 = MatchCollection(ujets, jets[0])
-	j2 = MatchCollection(ujets, jets[1])
+	j1 = MatchCollection(ujets, jets[idxH1])
+	j2 = MatchCollection(ujets, jets[idxH2])
 	#selecting HH events
 	#softdrop mass
 	
@@ -389,13 +311,31 @@ for i in range(num1, num2):
 	if j2 == len(jets):
 		continue
 
-	jet1sdmass[0] = fjUngroomedSDMass[j1]
-	jet2sdmass[0] = fjUngroomedSDMass[j2]
 
-	if fjUngroomedTau1[j1] > 0:
-		jet1t21 = fjUngroomedTau2[j1]/fjUngroomedTau1[j1]
-	if fjUngroomedTau1[j2] > 0:
-                jet2t21 = fjUngroomedTau2[j2]/fjUngroomedTau1[j2]
+	#mass cut - here we use pruned mass - ONLY here 
+        jet1pmass[0] = fjPrunedMass[j1]
+        jet2pmass[0] = fjPrunedMass[j2]
+
+        passjet1mass = 0
+        passjet2mass = 0
+
+        if 105 < jet1pmass[0] < 135:
+                passjet1mass +=1
+                c5.Fill(dijetm)
+        if 105 < jet2pmass[0] < 135:
+                passjet2mass +=1
+        if passjet1mass > 0 and passjet2mass > 0:
+                c6.Fill(dijetm)
+
+
+
+	#jet1sdmass[0] = fjUngroomedSDMass[idxH1]
+	#jet2sdmass[0] = fjUngroomedSDMass[idxH2]
+
+	#if fjUngroomedTau1[j1] > 0:
+	jet1t21 = jet_tau[idxH1]# fjUngroomedTau2[j1]/fjUngroomedTau1[j1]
+	#if fjUngroomedTau1[j2] > 0:
+        jet2t21 = jet_tau[idxH2]# fjUngroomedTau2[j2]/fjUngroomedTau1[j2]
 	if jet1t21 < 0.75:
 		passjet1taucut +=1
 	if passjet1mass> 0 and passjet2mass > 0 and passjet1taucut > 0:
@@ -417,10 +357,8 @@ for i in range(num1, num2):
             subjets.append(jettemp)
 
 	for j in range(len(subjets)):
-            dR1 = subjets[j].DeltaR(jets[0])
-	    dR2 = subjets[j].DeltaR(jets[1])
-	   # print "dr1 = " + str(dR1) + " for index " + str(j)
-	   # print "dr2 = " + str(dR2) + " for index " + str(j)
+            dR1 = subjets[j].DeltaR(jets[idxH1])
+	    dR2 = subjets[j].DeltaR(jets[idxH2])
 	    if dR1 < 0.4 and dR2 < 0.4:
 		    samesj[0] += 1
 	    elif dR1 < 0.4:
@@ -433,8 +371,6 @@ for i in range(num1, num2):
 		    jet2sjcsv.append(sjPrunedBtag[j])
 	n1sj = len(jet1sj)
 	n2sj = len(jet2sj)
-#	print "number of jet 1 subjets: " + str(n1sj)
-#	print "number of jet 2 subjets: " + str(n2sj)
 
 	#Finding the subjet with the smallest csv in each jet min(subjet csv)
 	jet1mscsv[0] = 1000.
@@ -442,24 +378,15 @@ for i in range(num1, num2):
 	for j in range(len(jet1sjcsv)):
      #       print "jet1sjcsv: " + str(jet1sjcsv[j])
 	    if jet1sjcsv[j] < jet1mscsv[0]:
-#		    print "min1sjcsv"
-#		    print jet1sjcsv[0]
 		    jet1mscsv[0] = jet1sjcsv[j]
 	for j in range(len(jet2sjcsv)):
- #           print "jet2sjcsv: " + str(jet2sjcsv[j])
 	    if jet2sjcsv[j] < jet2mscsv[0]:
-#		    print "min2sjcsv"
-#		    print jet2mscsv[0]
 		    jet2mscsv[0] = jet2sjcsv[j]
-#	print "jet 1 csvs: " + str(jet1sjcsv)
-#	print "jet2 csvs: " + str(jet2sjcsv)
-#	print "final jet 1 min sj csv: " + str(jet1mscsv[0])
-#	print "final jet 2 min sj csv: " + str(jet2mscsv[0])
 #	
 
 	#filling bbtag
-	jet1bbtag[0] = fjUngroomedBbTag[j1]
-	jet2bbtag[0] = fjUngroomedBbTag[j2]
+	jet1bbtag[0] = jet_bbtag[idxH1] #fjUngroomedBbTag[j1]
+	jet2bbtag[0] = jet_bbtag[idxH2] # fjUngroomedBbTag[j2]
 
 	if passjet1mass> 0 and passjet2mass > 0 and passjet1taucut > 0 and passjet2taucut > 0:
 		c11.Fill(jet1bbtag[0])
@@ -514,12 +441,6 @@ for i in range(num1, num2):
 		j14a.Fill(jet1pmass[0])
 		j24a.Fill(jet2pmass[0])
 	if passjet1mass > 0 and passjet2mass > 0 and passjet1taucut > 0 and passjet2taucut > 0 and passjet1sjb5 > 0 and passjet2sjb5 > 0:	
-#		print jet1pmass[0]
-#		print jet2pmass[0]
-#		print jet1tau21[0]
-#		print jet2tau21[0]
-#		print jet1mscsv[0]
-#		print jet2mscsv[0]
 		d4b.Fill(dijetm)
 		j14b.Fill(jet1pmass[0])
 		j24b.Fill(jet2pmass[0])
@@ -553,12 +474,12 @@ for i in range(num1, num2):
         
         
         #writing variables to the tree    
-	jet1pt[0] = jets[0].Pt()
-	jet2pt[0] = jets[1].Pt()
-	jet1eta[0] = jets[0].Eta()
-	jet2eta[0] = jets[1].Eta()
-	etadiff[0] = abs(jets[0].Eta() - jets[1].Eta())
-	dijetmass[0] = (jets[0] + jets[1]).M()
+	jet1pt[0] = jets[idxH1].Pt()
+	jet2pt[0] = jets[idxH2].Pt()
+	jet1eta[0] = jets[idxH1].Eta()
+	jet2eta[0] = jets[idxH2].Eta()
+	etadiff[0] = abs(jets[idxH1].Eta() - jets[idxH2].Eta())
+	dijetmass[0] = (jets[idxH0] + jets[idxH2]).M()
 	jet1tau21[0] = jet1t21
 	jet2tau21[0] = jet2t21
 
@@ -582,24 +503,6 @@ for i in range(num1, num2):
 	jet2bbtag[0] = -100.0
 	triggerpass[0] = -100.0
 	
-#    treeMine.ResetBranchAddresses()
-#    fjUngroomedPt.Delete()
-#    fjUngroomedEta.Delete()
-#    fjUngroomedPhi.Delete()
-#    fjUngroomedMass.Delete()
-#    fjUngroomedTau1.Delete()
-#    fjUngroomedTau2.Delete()
-#    fjUngroomedBbTag.Delete()
-#    fjPrunedPt.Delete()
-#    fjPrunedEta.Delete()
-#    fjPrunedPhi.Delete()
-#    fjPrunedMass.Delete()
-#    sjPrunedPt.Delete()
-#    sjPrunedEta.Delete()
-#    sjPrunedPhi.Delete()
-#    sjPrunedMass.Delete()
-#    sjPrunedBtag.Delete()
-#    hltMatch.Delete()
     
     f1.Close()
 
