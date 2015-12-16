@@ -30,6 +30,8 @@ AK8tau21           = FatjetAK08ungroomed_tau_21 < 0.6
 AK8DoubleB         = FatjetAK08ungroomed_bbtag > 0.5
 AK8HiggsMassWindow = 70 < FatjetAK08ungroomed_mpruned & FatjetAK08ungroomed_mpruned < 130
 AK8HiggsMassVeto   = !(<!Cut|AK8HiggsMassWindow!>)
+AK8HiggsMassVetoLow  = FatjetAK08ungroomed_mpruned < 70
+AK8HiggsMassVetoHigh = FatjetAK08ungroomed_mpruned > 130
 
 CA15tau21           = FatjetCA15ungroomed_tau_21 < 0.6
 CA15DoubleB         = FatjetCA15ungroomed_bbtag > 0.5
@@ -55,8 +57,10 @@ MET = metPuppi
 AK8HiggsTag              = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassWindow!>
 CA15HiggsTag             = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassWindow!>
 
-AK8HiggsTagMassSideband  = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassVeto!>  & 35 < FatjetAK08ungroomed_mpruned
-CA15HiggsTagMassSideband = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassVeto!> & 35 < FatjetCA15ungroomed_mpruned
+AK8HiggsTagMassSideband      = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassVeto!>  & 35 < FatjetAK08ungroomed_mpruned
+AK8HiggsTagMassSidebandLow   = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassVetoLow!>  & 35 < FatjetAK08ungroomed_mpruned
+AK8HiggsTagMassSidebandHigh  = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassVetoHigh!> 
+CA15HiggsTagMassSideband     = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassVeto!> & 35 < FatjetCA15ungroomed_mpruned
 
 #!! --------------------------------
 #!! Multiplicities
@@ -74,6 +78,8 @@ AK8HiggsTag  = Sum$(<!Obj|AK8HiggsTag!>)
 CA15HiggsTag = Sum$(<!Obj|CA15HiggsTag!>)
 
 AK8HiggsTagMassSideband  = Sum$(<!Obj|AK8HiggsTagMassSideband!>)
+AK8HiggsTagMassSidebandLow  = Sum$(<!Obj|AK8HiggsTagMassSidebandLow!>)
+AK8HiggsTagMassSidebandHigh  = Sum$(<!Obj|AK8HiggsTagMassSidebandHigh!>)
 CA15HiggsTagMassSideband = Sum$(<!Obj|CA15HiggsTagMassSideband!>)
 
 #!! --------------------------------
@@ -110,9 +116,11 @@ preselection = Vtype == 4 & <!Trigger|Znn!> & <!Filter|MET!> & <!Mult|AK8Jet!> =
 
 
 #SR = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
-#SR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
+SR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
 blindSR      = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> & isData==0 == 1
 CR           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSideband!> == 1
+CRLow           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSidebandLow!> == 1
+CRHigh           = <!Cuts|preselection!> & <!Mult|AK8HiggsTagMassSidebandHigh!> == 1
 
 
 
