@@ -64,7 +64,7 @@ Normalize = False
 #!! Plot name should match the cut name in the cuts config
 [Plot:preselection]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
@@ -83,7 +83,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CR]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|dec_vars!>
 Signal: ZprimeM2000
@@ -97,7 +97,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CRLow]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|dec_vars!>
 Signal: ZprimeM2000
@@ -111,7 +111,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CRHigh]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|dec_vars!>
 Signal: ZprimeM2000
@@ -125,7 +125,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:SR]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|dec_vars!>
 Signal: ZprimeM2000
