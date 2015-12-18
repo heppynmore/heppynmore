@@ -45,7 +45,7 @@ CA15HiggsMassVeto   = !(<!Cut|CA15HiggsMassWindow!>)
 
 AK4Jet  = Jet_pt                 > 20 & abs(Jet_eta)                < 2.4
 #AK4JetMod = Jet_pt                 > 20 & abs(Jet_eta)                > 3.0
-AK8Jet  = FatjetAK08ungroomed_pt > 20 & abs(FatjetAK08ungroomed_eta) < 2.4
+AK8Jet  = FatjetAK08ungroomed_pt > 20 & abs(FatjetAK08ungroomed_eta) < 2.4 & 35 < FatjetAK08ungroomed_mpruned
 CA15Jet = FatjetCA15ungroomed_pt > 20 & abs(FatjetCA15ungroomed_eta) < 2.4
 
 highPtAK8Jet  = FatjetAK08ungroomed_pt > 300 & abs(FatjetAK08ungroomed_eta) < 2.4
