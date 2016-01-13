@@ -1,5 +1,7 @@
 [Plot_general]
 
+doLog = False
+
 #lumi = 18940.
 lumi = 1280.
 
@@ -37,7 +39,7 @@ addOverFlow = False
 List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
 
 #!! Possibility to add an additional blinding cut for the plot
-#addBlindingCut = run<2
+#addBlindingCut = isData==0
 
 #!! Variables definition
 higgs_var:Hpt
@@ -60,7 +62,7 @@ Normalize = False
 #!! Plot name should match the cut name in the cuts config
 [Plot:preselection]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
@@ -72,35 +74,63 @@ Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: True
+log: <!Plot_general|doLog!>
 #!! apply blinding cut
 blind: False
 
 #!! Plot name should match the cut name in the cuts config
 [Plot:CR]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|allVars!>
+vars: <!Plot_general|dec_vars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: True
+log: <!Plot_general|doLog!>
 #!! apply blinding cut
 blind: False
 
 #!! Plot name should match the cut name in the cuts config
-[Plot:blindSR]
+[Plot:CRLow]
 #!! which data to compare to
-Datas: met
+Datas: met, met_v15a
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|dec_vars!>
+Signal: ZprimeM2000
+#Signal: <!Plot_general|plot_mass!>
+#Hpt
+#!! log scale
+log: <!Plot_general|doLog!>
+#!! apply blinding cut
+blind: False
+
+#!! Plot name should match the cut name in the cuts config
+[Plot:CRHigh]
+#!! which data to compare to
+Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: True
+log: <!Plot_general|doLog!>
+#!! apply blinding cut
+blind: False
+
+#!! Plot name should match the cut name in the cuts config
+[Plot:SR]
+#!! which data to compare to
+Datas: met, met_v15a
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|allVars!>
+Signal: ZprimeM2000
+#Signal: <!Plot_general|plot_mass!>
+#Hpt
+#!! log scale
+log: <!Plot_general|doLog!>
 #!! apply blinding cut
 blind: False
 
