@@ -9,6 +9,19 @@
 
 namespace VHbb {
   
+  double metPrime_pt(double met_pt, double met_phi, double lep_pt, double lep_phi)
+  {
+    double met_px=met_pt*TMath::Cos(met_phi);
+    double met_py=met_pt*TMath::Sin(met_phi);
+
+    double lep_px=lep_pt*TMath::Cos(lep_phi);
+    double lep_py=lep_pt*TMath::Sin(lep_phi);
+
+    double metPrime_px=met_px+lep_px;
+    double metPrime_py=met_py+lep_py;
+
+    return TMath::Sqrt(TMath::Power(metPrime_px,2) + TMath::Power(metPrime_py,2));
+  }
 
   double deltaPhi(double phi1,double phi2)
   {

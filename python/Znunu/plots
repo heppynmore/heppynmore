@@ -47,9 +47,7 @@ bbtag_var:FatjetCA15ungroomed_bbtag
 fatjet_var:FatjetCA15ungroomed_pt
 mt_var:VH_mt,VH_mtPuppi
 
-allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi
-
-dec_vars:met_phi,metPuppi_phi,tkMet_phi,met_pt,metPuppi_pt,tkMet_pt,dphi_metPuppi_tkMet,dphi_met_tkMet,dphi_met_jets,good_jet_pt,good_jet_eta,good_jet_phi,good_jet_multiplicity,good_ungroomedak08jet_multiplicity,sel_ungroomedak08jet_tau_21,sel_ungroomedak08jet_tau_21_zoom,sel_ungroomedak08jet_bbtag,sel_ungroomedak08jet_bbtag_zoom,sel_ungroomedak08jet_mpruned,sel_ungroomedak08jet_msoftdrop,VH_mt,VH_mtPuppi 
+allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi,met_phi,metPuppi_phi,tkMet_phi,tkMet_pt,dphi_metPuppi_tkMet,dphi_met_tkMet,dphi_met_jets,good_jet_pt,good_jet_eta,good_jet_phi,good_jet_multiplicity,good_ungroomedak08jet_multiplicity,all_ungroomedak08jet_tau_21,all_ungroomedak08jet_bbtag,all_ungroomedak08jet_mpruned,sel_ungroomedak08jet_tau_21,sel_ungroomedak08jet_tau_21_zoom,sel_ungroomedak08jet_bbtag,sel_ungroomedak08jet_bbtag_zoom,sel_ungroomedak08jet_mpruned,sel_ungroomedak08jet_msoftdrop 
 
 #!! Additional global variables
 BDT_plot_blind: False
@@ -71,7 +69,7 @@ Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|bbtag_var!>
 #vars: <!Plot_general|fatjet_var!>
 #vars: <!Plot_general|mt_var!>
-vars: <!Plot_general|dec_vars!>
+vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
@@ -113,7 +111,7 @@ blind: False
 #!! which data to compare to
 Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|dec_vars!>
+vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
@@ -127,7 +125,7 @@ blind: False
 #!! which data to compare to
 Datas: met, met_v15a
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|dec_vars!>
+vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
