@@ -1,0 +1,22 @@
+[TrainRegression]
+name = November2V14
+signals = ZH125
+#signals = ZH110,ZH115,ZH120,ZH125,ZH130,ZH135
+
+options = !H:!V:NTrees=2000::BoostType=Grad:Shrinkage=0.1:SeparationType=RegressionVariance:UseBaggedGrad:GradBaggingFraction=0.7:nCuts=20:MaxDepth=3:NNodesMax=15
+#options = !H:!V:NTrees=100::BoostType=Grad:Shrinkage=0.7:SeparationType=RegressionVariance:UseBaggedGrad:GradBaggingFraction=0.7:nCuts=20:MaxDepth=3:NNodesMax=5
+
+
+#for 13tev 
+vars = Jet_pt (Jet_corr_JECUp-Jet_corr_JECDown) Jet_leadTrackPt Jet_mult max(0,Jet_vtxMass) max(0,Jet_vtxPt) max(0,Jet_vtx3DVal) max(0,Jet_vtx3DSig) max(0,Jet_leptonPtRel) max(0,Jet_leptonDeltaR) max(0,Jet_leptonPt)
+#variables not yet used:
+#max(0,Jet_leptonPtRel) max(0,Jet_leptonDeltaR) max(0,Jet_leptonPt) hJet_cef VHbb::evalJERBias(Jet_rawPt,Jet_mcPt,Jet_eta) VHbb::evalEt(Jet_pt,Jet_eta,Jet_phi,Jet_mass) VHbb::evalMt(Jet_pt,Jet_eta,Jet_phi,Jet_mass) metNoPU_pt VHbb::deltaPhi(metNoPU_phi,Jet_phi)
+
+
+cut = Jet_mult>0 & abs(Jet_eta[hJCidx[0]]) < 2.4 & abs(Jet_eta[hJCidx[1]]) < 2.4 & Jet_mcPt[hJCidx[0]] > 0. & Jet_mcPt[hJCidx[1]] > 0. & Jet_mcPt[hJCidx[0]] > 0. & Jet_mcPt[hJCidx[1]] > 0. & Jet_btagCSV[hJCidx[0]] > 0. & Jet_btagCSV[hJCidx[1]] > 0. & Jet_chHEF[hJCidx[0]] > 0. & Jet_chHEF[hJCidx[1]] > 0.
+
+trainCut = evt%8==0
+testCut = evt%8!=0 & evt%5==0
+weight = 1
+#weight = PUweight
+target = Jet_mcPt
