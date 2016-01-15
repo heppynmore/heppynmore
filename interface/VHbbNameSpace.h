@@ -9,18 +9,27 @@
 
 namespace VHbb {
   
-  double metPrime_pt(double met_pt, double met_phi, double lep_pt, double lep_phi)
+  //pass in varNo==0 to get the pT, varNo==1 to get the phi
+  //pass in lep2_pt==lep2_phi==0 if only 1 lepton to remove
+  double metPrime(double met_pt, double met_phi, double lep1_pt, double lep1_phi, double lep2_pt=0, double lep2_phi=0, int varNo=0)
   {
     double met_px=met_pt*TMath::Cos(met_phi);
     double met_py=met_pt*TMath::Sin(met_phi);
 
-    double lep_px=lep_pt*TMath::Cos(lep_phi);
-    double lep_py=lep_pt*TMath::Sin(lep_phi);
+    double lep1_px=lep1_pt*TMath::Cos(lep1_phi);
+    double lep1_py=lep1_pt*TMath::Sin(lep1_phi);
 
-    double metPrime_px=met_px+lep_px;
-    double metPrime_py=met_py+lep_py;
+    double lep2_px=lep2_pt*TMath::Cos(lep2_phi);
+    double lep2_py=lep2_pt*TMath::Sin(lep2_phi);
 
-    return TMath::Sqrt(TMath::Power(metPrime_px,2) + TMath::Power(metPrime_py,2));
+    double metPrime_px=met_px+lep1_px;
+    double metPrime_py=met_py+lep1_py;
+
+    metPrime_px+=lep2_px;
+    metPrime_py+=lep2_py;
+
+    if (varNo==0) return TMath::Sqrt(TMath::Power(metPrime_px,2) + TMath::Power(metPrime_py,2));
+    else          return TMath::ATan2(metPrime_py,metPrime_px);
   }
 
   double deltaPhi(double phi1,double phi2)
