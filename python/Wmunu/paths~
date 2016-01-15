@@ -8,15 +8,15 @@ List = paths general cuts training datacard plots lhe_weight samples_nosplit.cfg
 #!! just a variable
 Dname:heppynmore
 #!! Working Directory
-Wdir=/uscms_data/d2/kreis/Hbb/eth/jan14/CMSSW_7_4_15/src
+Wdir=/uscms_data/d3/debarati/Wtomu_Vtype2
 samplepath = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14
-t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/tmp
+t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeWmunuHbb/tmp
 scratch = <!Directories|vhbbpath!>/
 
 #!! The directory with the code
 vhbbpath= <!Directories|Wdir!>/<!Directories|Dname!>/
 #!! specifies the .cfg files with the Samples information
-samplesinfo: <!Directories|vhbbpath!>/python/Znunu/samples_nosplit.cfg
+samplesinfo: <!Directories|vhbbpath!>/python/Wmunu/samples_nosplit.cfg
 #!! where you want to store the logfiles from job submissions
 logpath=<!Directories|vhbbpath!>/LOG/
 
@@ -37,7 +37,8 @@ limits: <!Directories|vhbbpath!>/Limit_expertAllnominal/
 PREPin: <!Directories|samplepath!>
 #PREPout: <!Directories|vhbbpath!>/env/
 #PREPout: <!Directories|scratch!>/
-PREPout: /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/env/
+#PREPout: /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZnunuHbb/env/
+PREPout: /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeWmunuHbb/env/
 
 #!! On which samples to apply the regression and write the sys and where to write the resulting trees:
 SYSin: <!Directories|vhbbpath!>/env/

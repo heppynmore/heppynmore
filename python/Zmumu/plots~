@@ -1,13 +1,11 @@
 [Plot_general]
 
-doLog = False
-
 #lumi = 18940.
 lumi = 1280.
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
 samples:[<!Samples|allBKG!>,'ZprimeM2000']
-#<!Samples|Zjudsg!>
+#samples:<!Samples|Zjudsg!>
 
 #!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
 Group: <!Samples|Group!>
@@ -39,15 +37,15 @@ addOverFlow = False
 List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
 
 #!! Possibility to add an additional blinding cut for the plot
-#addBlindingCut = isData==0
+#addBlindingCut = run<2
 
 #!! Variables definition
 higgs_var:Hpt
 bbtag_var:FatjetCA15ungroomed_bbtag
 fatjet_var:FatjetCA15ungroomed_pt
 mt_var:VH_mt,VH_mtPuppi
-
-allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi,met_phi,metPuppi_phi,tkMet_phi,tkMet_pt,dphi_metPuppi_tkMet,dphi_met_tkMet,dphi_met_jets,good_jet_pt,good_jet_eta,good_jet_phi,good_jet_multiplicity,good_ungroomedak08jet_multiplicity,all_ungroomedak08jet_tau_21,all_ungroomedak08jet_bbtag,all_ungroomedak08jet_mpruned,sel_ungroomedak08jet_tau_21,sel_ungroomedak08jet_tau_21_zoom,sel_ungroomedak08jet_bbtag,sel_ungroomedak08jet_bbtag_zoom,sel_ungroomedak08jet_mpruned,sel_ungroomedak08jet_msoftdrop 
+allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi
+dec15_vars:met_phi,metPuppi_phi,tkMet_phi,met_pt,metPuppi_pt,tkMet_pt,dphi_metPuppi_tkMet,dphi_met_tkMet,dphi_met_jets,good_jet_pt,good_jet_eta,good_jet_phi,good_jet_multiplicity,good_ungroomedak08jet_multiplicity,all_ungroomedak08jet_tau_21,all_ungroomedak08jet_bbtag,all_ungroomedak08jet_mpruned 
 
 #!! Additional global variables
 BDT_plot_blind: False
@@ -62,75 +60,51 @@ Normalize = False
 #!! Plot name should match the cut name in the cuts config
 [Plot:preselection]
 #!! which data to compare to
-Datas: met, met_v15a
+#Datas: met
+Datas: Zmm
 Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
 #vars: <!Plot_general|bbtag_var!>
 #vars: <!Plot_general|fatjet_var!>
 #vars: <!Plot_general|mt_var!>
-vars: <!Plot_general|allVars!>
+#vars: <!Plot_general|allVars!>
+vars: <!Plot_general|dec15_vars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: <!Plot_general|doLog!>
+log: True
 #!! apply blinding cut
 blind: False
 
 #!! Plot name should match the cut name in the cuts config
 [Plot:CR]
 #!! which data to compare to
-Datas: met, met_v15a
+#Datas: met
+Datas: Zmm
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|allVars!>
+vars: <!Plot_general|dec15_vars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: <!Plot_general|doLog!>
+log: True
 #!! apply blinding cut
 blind: False
 
 #!! Plot name should match the cut name in the cuts config
-[Plot:CRLow]
+[Plot:blindSR]
 #!! which data to compare to
-Datas: met, met_v15a
+#Datas: met
+Datas: Zmm
 Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|allVars!>
+vars: <!Plot_general|dec15_vars!>
 Signal: ZprimeM2000
 #Signal: <!Plot_general|plot_mass!>
 #Hpt
 #!! log scale
-log: <!Plot_general|doLog!>
-#!! apply blinding cut
-blind: False
-
-#!! Plot name should match the cut name in the cuts config
-[Plot:CRHigh]
-#!! which data to compare to
-Datas: met, met_v15a
-Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|allVars!>
-Signal: ZprimeM2000
-#Signal: <!Plot_general|plot_mass!>
-#Hpt
-#!! log scale
-log: <!Plot_general|doLog!>
-#!! apply blinding cut
-blind: False
-
-#!! Plot name should match the cut name in the cuts config
-[Plot:SR]
-#!! which data to compare to
-Datas: met, met_v15a
-Normalize: <!Plot_general|Normalize!>
-vars: <!Plot_general|allVars!>
-Signal: ZprimeM2000
-#Signal: <!Plot_general|plot_mass!>
-#Hpt
-#!! log scale
-log: <!Plot_general|doLog!>
+log: True
 #!! apply blinding cut
 blind: False
 
