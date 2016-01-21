@@ -3,7 +3,7 @@
 doLog = False
 
 #lumi = 18940.
-lumi = 1280.
+lumi = 1280. #not used??
 
 #!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
 samples:[<!Samples|allBKG!>,'ZprimeM2000']
@@ -62,7 +62,7 @@ Normalize = False
 #!! Plot name should match the cut name in the cuts config
 [Plot:preselection]
 #!! which data to compare to
-Datas: met, met_v15a
+Datas: met_nopromptreco, met_v15a
 Normalize: <!Plot_general|Normalize!>
 #vars: <!Plot_general|higgs_var!>
 #vars: <!Plot_general|met_var!>
@@ -81,7 +81,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CR]
 #!! which data to compare to
-Datas: met, met_v15a
+Datas: met_nopromptreco, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
@@ -95,7 +95,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CRLow]
 #!! which data to compare to
-Datas: met, met_v15a
+Datas: met_nopromptreco, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
@@ -109,7 +109,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:CRHigh]
 #!! which data to compare to
-Datas: met, met_v15a
+Datas: met_nopromptreco, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
@@ -123,7 +123,7 @@ blind: False
 #!! Plot name should match the cut name in the cuts config
 [Plot:SR]
 #!! which data to compare to
-Datas: met, met_v15a
+Datas: met_nopromptreco, met_v15a
 Normalize: <!Plot_general|Normalize!>
 vars: <!Plot_general|allVars!>
 Signal: ZprimeM2000
