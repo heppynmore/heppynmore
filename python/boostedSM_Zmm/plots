@@ -1,0 +1,75 @@
+[Plot_general]
+
+#lumi = 18940.
+lumi = 1280.
+
+#!! Samples to be used for plotting. it also can be <!Samples|allBKG!>
+samples:[<!Samples|allBKG!>,<!Samples|allSIG!>]
+#samples:<!Samples|Zjudsg!>
+
+#!! Groups for adding samples together and for the legend {'sampleName':'sampleGroup',...}. it also can be <!Samples|Group!>
+Group: <!Samples|Group!>
+#Group: {'Zudsg':'DYlight','Zcc':'DYc','Z1b':'DY1b','Z2b':'DY2b','Zee':'Data','Zmm':'Data','Wudsg':'WJudsg','Wc':'WJc'}
+#Group: {'WJudsg':'DYlight','WJc':'DYc','WJ1b':'DY1b','WJ2b':'DY2b','Zee':'Data','Zmm':'Data'}
+
+#!! Here the order and the groups that will go in the plots
+setup:ZH,DYlight,DYc,DY1b,DY2b,Wudsg,Wc,W1b,W2b,Zjudsg,Zj2b,Zj1b,Zjc,QCDlight,QCDc,QCD1b,QCD2b,Top,s_Top,Diboson
+setupLog:ZH,DYlight,DYc,DY1b,DY2b,Wudsg,Wc,W1b,W2b,Zjudsg,Zj2b,Zj1b,Zjc,QCDlight,QCDc,QCD1b,QCD2b,Top,s_Top,Diboson
+
+#!! Colors dictionary and legend
+#colorDict: {'DYlight':401,'DYc':402,'DY2b':5,'DY1b':41,'TT':596,'ST':840,'VVlight':922,'VVb':920,'ZZb':18,'WZb':18,'ZH':2,'':1}
+#W+light: 418, W+b: 410, W+bb: 416
+#colorDict: {'Wudsg':418,'Wc':420,'W1b':410,'W2b':416}
+#colorDict: {'Zjudsg':596}
+
+#,'Zjc':840,'Zj1b':922,'Zj2b':920,'':1}
+colorDict: {'ZH':2,'ZH125':2,'ggZH125':2,'DYlight':401,'DYc':402,'DYlc':401,'DY1b':41,'DY2b':5,'Wudsg':418,'Wc':420,'W1b':410,'W2b':416,'Zjudsg':803,'Zj2b':800,'Zj1b':801,'Zjc':805,'Zjudsg':800,'QCDlight':617,'QCDc':618,'QCD1b':619,'QCD2b':620,'Top':862,'s_Top':840,'Diboson':922,'':1}
+
+typLegendDict: {'ggZH125':'ggZH','ZH125':'ZH','DYlight':'Z+udscg','DYc':'Z+c#bar{c}','DYlc':'Z+udscg','DY2b':'Z+b#bar{b}','DY1b':'Z+b','Wudsg':'W+udsg','W1b':'W+b','W2b':'W +b#bar{b}','Wc':'W+c','Zjudsg':'Z(#nu#nu)+udsg','Zj1b':'Z(#nu#nu)+b','Zj2b':'Z(#nu#nu)+b#bar{b}','Zjc':'Z(#nu#nu)+c','Top':'T#bar{T}','s_Top':'Single top','Diboson':'WW/WZ/ZZ','VVlight':'VV(udscg)','VVb':'VZ(b#bar{b})','ZH':'ZH','WH':'VH(b#bar{b}) 125','VH':'VH','QCDlight':'udsg','QCDc':'c','QCD1b':'b','QCD2b':'b#bar{b}','Overlay':'VH(b#bar{b}) 125','':''}
+
+
+#typLegendDict: {'Zjudsg':'Z+udscg'}
+#!! Add overflow bin in the plots
+
+addOverFlow = False
+
+#!! List of regions to be submitted in case of bacth submission
+List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
+
+#!! Possibility to add an additional blinding cut for the plot
+#addBlindingCut = run<2
+#should use isData
+
+#!! Variables definition
+higgs_var:Hpt
+bbtag_var:FatjetCA15ungroomed_bbtag
+fatjet_var:FatjetCA15ungroomed_pt
+mt_var:VH_mt,VH_mtPuppi
+allVars:met_pt,metPuppi_pt,VH_mt,VH_mtPuppi,met_phi,metPuppi_phi,tkMet_phi,tkMet_pt,dphi_metPuppi_tkMet,dphi_met_tkMet,dphi_met_jets,good_jet_pt,good_jet_eta,good_jet_phi,good_jet_multiplicity,good_ungroomedak08jet_multiplicity,all_ungroomedak08jet_tau_21,all_ungroomedak08jet_bbtag,all_ungroomedak08jet_mpruned,sel_ungroomedak08jet_tau_21,sel_ungroomedak08jet_tau_21_zoom,sel_ungroomedak08jet_bbtag,sel_ungroomedak08jet_bbtag_zoom,sel_ungroomedak08jet_mpruned,sel_ungroomedak08jet_msoftdrop
+
+#!! Additional global variables
+BDT_plot_blind: False
+BDT_plot_log: False
+Normalize = False
+
+#!! -----------------------
+#!! Plot regions definition
+#!! -----------------------
+
+#!! Plot name should match the cut name in the cuts config
+[Plot:ttbar_CR]
+#!! which data to compare to
+#Datas: met
+Datas: Zmm
+Normalize: <!Plot_general|Normalize!>
+vars: <!Plot_general|allVars!>
+Signal: ZH
+#Hpt
+#!! log scale
+log: False
+#!! apply blinding cut
+blind: False
+
+
+
+
