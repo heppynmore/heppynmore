@@ -37,8 +37,7 @@ addOverFlow = False
 List: ZLight_HighPt_Zee,ZLight_HighPt_Zmm,ZLight_HighPt
 
 #!! Possibility to add an additional blinding cut for the plot
-#addBlindingCut = run<2
-#should use isData
+#addBlindingCut = isData==0
 
 #!! Variables definition
 higgs_var:Hpt
