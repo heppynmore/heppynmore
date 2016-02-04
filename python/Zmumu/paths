@@ -8,7 +8,7 @@ List = paths general cuts training datacard plots lhe_weight samples_nosplit.cfg
 #!! just a variable
 Dname:heppynmore
 #!! Working Directory
-Wdir=/uscms_data/d2/kreis/Hbb/eth/jan14/CMSSW_7_4_15/src
+Wdir=/uscms_data/d3/debarati/ControlPlots/
 samplepath = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14
 t3Private = /eos/uscms/store/user/lpchbb/HeppyNtuples/V14/heppynmore/ZprimeZmumuHbb/tmp
 scratch = <!Directories|vhbbpath!>/

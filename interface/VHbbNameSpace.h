@@ -39,15 +39,14 @@ namespace VHbb {
     while (result <= -TMath::Pi()) result += 2*TMath::Pi();
     return result;
   }
-
+  
   inline double deltaR(double eta1,double phi1,double eta2,double phi2)
     {
       double deta = eta1 - eta2;
       double dphi = deltaPhi(phi1, phi2);
       return TMath::Sqrt(deta*deta + dphi*dphi);
     }
-
-
+  
   double Hmass( double V_eta,double V_phi,double V_pt, 
 		double hJet1_eta,double hJet1_phi,double hJet1_pt, 
 		double hJet2_eta,double hJet2_phi,double hJet2_pt ){
@@ -79,25 +78,25 @@ namespace VHbb {
   
   double Hmass_comb(double hJet1_eta,double hJet1_phi,double hJet1_pt, double hJet1_mass,
 		    double hJet2_eta,double hJet2_phi,double hJet2_pt, double hJet2_mass){
-
+    
     TLorentzVector H1, H2;
     H1.SetPtEtaPhiM(hJet1_pt,hJet1_eta,hJet1_phi, hJet1_mass);;
     H2.SetPtEtaPhiM(hJet2_pt,hJet2_eta,hJet2_phi, hJet2_mass);
-
+    
     return (H1 + H2).M();
-
+    
   }
-
+  
   double Hmass_3j(double h_eta,double h_phi,double h_pt, double h_mass,
 		  double aJet_eta,double aJet_phi,double aJet_pt, double aJet_mass){
-
+    
     TLorentzVector H, H3;
     H.SetPtEtaPhiM( h_pt,h_eta,h_phi, h_mass);;
     H3.SetPtEtaPhiM(aJet_pt,aJet_eta,aJet_phi, aJet_mass);
-
+    
     return (H + H3).M();
-
-
+    
+    
   }
   
   double ANGLELZ(double pt, double eta, double phi, double mass, double pt2, double eta2, double phi2, double mass2){
@@ -105,15 +104,14 @@ namespace VHbb {
     m1.SetPtEtaPhiM(pt, eta, phi, mass);
     m2.SetPtEtaPhiM(pt2, eta2, phi2, mass2);
     msum = m1 + m2;
-
+    
     TVector3 bZ =  msum.BoostVector();
 
     m1.Boost(-bZ);  
     m2.Boost(-bZ);  
-
+    
     TVector3 b1;
-
-
+    
     if((int) (pt) % 2 == 0)
       b1 =  m1.BoostVector();
     else
@@ -122,30 +120,30 @@ namespace VHbb {
     double cosTheta = b1.Dot(msum.BoostVector()) / (b1.Mag()*msum.BoostVector().Mag());
     return(cosTheta);
   }
-
+  
 
   double ANGLEHB(double pt, double eta, double phi, double e, double pt2, double eta2, double phi2, double e2){
     TLorentzVector m1, m2, msum;
     m1.SetPtEtaPhiE(pt, eta, phi, e);
     m2.SetPtEtaPhiE(pt2, eta2, phi2, e2);
     msum = m1 + m2;
-
+    
     TVector3 bZ =  msum.BoostVector();
-
+    
     m1.Boost(-bZ);
     m2.Boost(-bZ);  
-
+    
     TVector3 b1;
-
+    
     if((int) (pt) % 2 == 0)
       b1 =  m1.BoostVector();
     else
       b1 =  m2.BoostVector();
-
+    
     double cosTheta = b1.Dot(msum.BoostVector()) / (b1.Mag()*msum.BoostVector().Mag());
     return(cosTheta);
   }
-
+  
   double metCorSysShift(double met, double metphi, int Nvtx, int EVENT_run)
   {
     double metx = met * cos(metphi);
@@ -164,7 +162,7 @@ namespace VHbb {
     mety -= py;
     return std::sqrt(metx*metx + mety*mety);
   }
-
+  
   double metphiCorSysShift(double met, double metphi, int Nvtx, int EVENT_run)
   {
     double metx = met * cos(metphi);
@@ -184,7 +182,7 @@ namespace VHbb {
     mety -= py;
     if (metx == 0.0 && mety == 0.0)
       return 0.0;
-
+    
     double phi1 = std::atan2(mety,metx);
     double phi2 = std::atan2(mety,metx)-2.0*M_PI;
     if (std::abs(phi1-metphi) < std::abs(phi2-metphi)+0.5*M_PI)
@@ -192,7 +190,7 @@ namespace VHbb {
     else
       return phi2;
   }
-
+  
   TVector2 metType1Reg(double met, double metphi, double corr1, double corr2, double pt1, double eta1, double phi1, double e1, double pt2, double eta2, double phi2, double e2)
   {
     double metx = met * cos(metphi);
@@ -208,23 +206,23 @@ namespace VHbb {
     TVector2 corrMET(metx, mety);
     return corrMET;
   }
-
+  
   double metType1Phi(double met, double metphi, double corr1, double corr2, double pt1, double eta1, double phi1, double e1, double pt2, double eta2, double phi2, double e2){
     return metType1Reg(met, metphi, corr1, corr2, pt1, eta1, phi1, e1, pt2, eta2, phi2, e2).Phi();
-
+    
   }
   double metType1Et(double met, double metphi, double corr1, double corr2, double pt1, double eta1, double phi1, double e1, double pt2, double eta2, double phi2, double e2){
     return metType1Reg(met, metphi, corr1, corr2, pt1, eta1, phi1, e1, pt2, eta2, phi2, e2).Mod();
 
   }
-
-
+  
+  
   double met_MPF(double met, double metphi, double pt, double phi)
   {
     return 1.+met*pt*std::cos( deltaPhi(metphi,phi) ) / (pt*pt);
-
+    
   }
-
+  
   double resolutionBias(double eta)
   {
     // return 0;//Nominal!
@@ -235,7 +233,7 @@ namespace VHbb {
     if(eta< 5) return 0.28;
     return 0;
   }
-
+  
   double evalJERBias( double ptreco, double ptgen, double eta1){
     double eta = fabs(eta1);
     double cor =1;   
@@ -245,31 +243,31 @@ namespace VHbb {
     if (ptgen > 0.) return ptreco*cor;
     else return ptreco;
   }
-
+  
   double evalEt( double pt, double eta, double phi, double e){
     TLorentzVector j;
     j.SetPtEtaPhiE(pt,eta,phi, e );
     return j.Et(); 
-
+    
   }
-
+  
   double evalMt( double pt, double eta, double phi, double e){
     TLorentzVector j;
     j.SetPtEtaPhiE(pt,eta,phi, e );
     return j.Mt(); 
-
+    
   }
   /*double evalJECUnc( double pt, double eta){
   // Total uncertainty for reference
   JetCorrectionUncertainty *total = new JetCorrectionUncertainty("/shome/nmohr/CMSSW_5_2_6_patch1/src/UserCode/VHbb/data/START53_V15MC_Uncertainty_AK5PFchs.txt");
-
+  
   total->setJetPt(pt);
   total->setJetEta(eta);
   double uncert =  total->getUncertainty(true);
   delete total;
   return uncert;
   }*/
-
+  
   double ptWeightDY( double lheV_pt, double sign = 1.)
   {
     double SF = 1.;
@@ -307,8 +305,7 @@ namespace VHbb {
     //std::cout << " SF " << " " << SF << std::endl;
     return SF>0?SF:0;
   }
-
-
+  
   double minCSVold(int EVENT_run, double hJet_csv0, double hJet_csv1, double hJet_csvOld0, double hJet_csvOld1){
 
     if( EVENT_run < 2 )
@@ -316,16 +313,16 @@ namespace VHbb {
     else
       return std::min(hJet_csv0,hJet_csv1);
   }
-
+  
   double maxCSVold(int EVENT_run, double hJet_csv0, double hJet_csv1, double hJet_csvOld0, double hJet_csvOld1){
-
+    
     if( EVENT_run < 2 )
       return std::max(hJet_csvOld0,hJet_csvOld1);
     else
       return std::max(hJet_csv0,hJet_csv1);
   }
-
-
+  
+  
   // weights correction for EWK NLO correction from Atlas
   double ewkAtlas8TeVZllH( double genHPt, double genZPt){
     if (genHPt < 1.) return 1.;
@@ -337,72 +334,72 @@ namespace VHbb {
     return SF;
   }
   
-double eleEff(double pt, double eta){
-if (pt >= 20.0 && pt < 25.0 && eta < -1.57000005245 && eta > -2.5) return 0.955429255962 ;
-if (pt >= 20.0 && pt < 25.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.927380621433 ;
-if (pt >= 20.0 && pt < 25.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.752811849117 ;
-if (pt >= 20.0 && pt < 25.0 && eta < 0.0 && eta > -0.800000011921) return 0.758898377419 ;
-if (pt >= 20.0 && pt < 25.0 && eta < 0.800000011921 && eta > 0.0) return 0.755395233631 ;
-if (pt >= 20.0 && pt < 25.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.765102207661 ;
-if (pt >= 20.0 && pt < 25.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.889689266682 ;
-if (pt >= 20.0 && pt < 25.0 && eta < 2.5 && eta > 1.57000005245) return 0.960859179497 ;
-if (pt >= 25.0 && pt < 30.0 && eta < -1.57000005245 && eta > -2.5) return 0.973749041557 ;
-if (pt >= 25.0 && pt < 30.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.95562505722 ;
-if (pt >= 25.0 && pt < 30.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.854979991913 ;
-if (pt >= 25.0 && pt < 30.0 && eta < 0.0 && eta > -0.800000011921) return 0.859907507896 ;
-if (pt >= 25.0 && pt < 30.0 && eta < 0.800000011921 && eta > 0.0) return 0.856850981712 ;
-if (pt >= 25.0 && pt < 30.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.854210674763 ;
-if (pt >= 25.0 && pt < 30.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.961790204048 ;
-if (pt >= 25.0 && pt < 30.0 && eta < 2.5 && eta > 1.57000005245) return 0.984032571316 ;
-if (pt >= 30.0 && pt < 35.0 && eta < -1.57000005245 && eta > -2.5) return 0.975343048573 ;
-if (pt >= 30.0 && pt < 35.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.971944391727 ;
-if (pt >= 30.0 && pt < 35.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.916224777699 ;
-if (pt >= 30.0 && pt < 35.0 && eta < 0.0 && eta > -0.800000011921) return 0.918354153633 ;
-if (pt >= 30.0 && pt < 35.0 && eta < 0.800000011921 && eta > 0.0) return 0.914323210716 ;
-if (pt >= 30.0 && pt < 35.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.918937265873 ;
-if (pt >= 30.0 && pt < 35.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.949005782604 ;
-if (pt >= 30.0 && pt < 35.0 && eta < 2.5 && eta > 1.57000005245) return 0.978435099125 ;
-if (pt >= 35.0 && pt < 40.0 && eta < -1.57000005245 && eta > -2.5) return 0.977416038513 ;
-if (pt >= 35.0 && pt < 40.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.96676659584 ;
-if (pt >= 35.0 && pt < 40.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.949674129486 ;
-if (pt >= 35.0 && pt < 40.0 && eta < 0.0 && eta > -0.800000011921) return 0.955099225044 ;
-if (pt >= 35.0 && pt < 40.0 && eta < 0.800000011921 && eta > 0.0) return 0.95435655117 ;
-if (pt >= 35.0 && pt < 40.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.949129760265 ;
-if (pt >= 35.0 && pt < 40.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.966977357864 ;
-if (pt >= 35.0 && pt < 40.0 && eta < 2.5 && eta > 1.57000005245) return 0.974912643433 ;
-if (pt >= 40.0 && pt < 45.0 && eta < -1.57000005245 && eta > -2.5) return 0.976379692554 ;
-if (pt >= 40.0 && pt < 45.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.96400809288 ;
-if (pt >= 40.0 && pt < 45.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.967367231846 ;
-if (pt >= 40.0 && pt < 45.0 && eta < 0.0 && eta > -0.800000011921) return 0.976113498211 ;
-if (pt >= 40.0 && pt < 45.0 && eta < 0.800000011921 && eta > 0.0) return 0.970276534557 ;
-if (pt >= 40.0 && pt < 45.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.965076506138 ;
-if (pt >= 40.0 && pt < 45.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.962332487106 ;
-if (pt >= 40.0 && pt < 45.0 && eta < 2.5 && eta > 1.57000005245) return 0.975438177586 ;
-if (pt >= 45.0 && pt < 50.0 && eta < -1.57000005245 && eta > -2.5) return 0.974642693996 ;
-if (pt >= 45.0 && pt < 50.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.976564764977 ;
-if (pt >= 45.0 && pt < 50.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.975869596004 ;
-if (pt >= 45.0 && pt < 50.0 && eta < 0.0 && eta > -0.800000011921) return 0.984652400017 ;
-if (pt >= 45.0 && pt < 50.0 && eta < 0.800000011921 && eta > 0.0) return 0.976347208023 ;
-if (pt >= 45.0 && pt < 50.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.974825322628 ;
-if (pt >= 45.0 && pt < 50.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.968582391739 ;
-if (pt >= 45.0 && pt < 50.0 && eta < 2.5 && eta > 1.57000005245) return 0.973198652267 ;
-if (pt >= 50.0 && pt < 200.0 && eta < -1.57000005245 && eta > -2.5) return 0.976521909237 ;
-if (pt >= 50.0 && pt < 200.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.968289792538 ;
-if (pt >= 50.0 && pt < 200.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.980251729488 ;
-if (pt >= 50.0 && pt < 200.0 && eta < 0.0 && eta > -0.800000011921) return 0.988307952881 ;
-if (pt >= 50.0 && pt < 200.0 && eta < 0.800000011921 && eta > 0.0) return 0.983105957508 ;
-if (pt >= 50.0 && pt < 200.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.976873219013 ;
-if (pt >= 50.0 && pt < 200.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.970499277115 ;
-if (pt >= 50.0 && pt < 200.0 && eta < 2.5 && eta > 1.57000005245) return 0.972752988338 ;
-return 1.;
-}
+  double eleEff(double pt, double eta){
+    if (pt >= 20.0 && pt < 25.0 && eta < -1.57000005245 && eta > -2.5) return 0.955429255962 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.927380621433 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.752811849117 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < 0.0 && eta > -0.800000011921) return 0.758898377419 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < 0.800000011921 && eta > 0.0) return 0.755395233631 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.765102207661 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.889689266682 ;
+    if (pt >= 20.0 && pt < 25.0 && eta < 2.5 && eta > 1.57000005245) return 0.960859179497 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < -1.57000005245 && eta > -2.5) return 0.973749041557 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.95562505722 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.854979991913 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < 0.0 && eta > -0.800000011921) return 0.859907507896 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < 0.800000011921 && eta > 0.0) return 0.856850981712 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.854210674763 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.961790204048 ;
+    if (pt >= 25.0 && pt < 30.0 && eta < 2.5 && eta > 1.57000005245) return 0.984032571316 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < -1.57000005245 && eta > -2.5) return 0.975343048573 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.971944391727 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.916224777699 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < 0.0 && eta > -0.800000011921) return 0.918354153633 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < 0.800000011921 && eta > 0.0) return 0.914323210716 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.918937265873 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.949005782604 ;
+    if (pt >= 30.0 && pt < 35.0 && eta < 2.5 && eta > 1.57000005245) return 0.978435099125 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < -1.57000005245 && eta > -2.5) return 0.977416038513 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.96676659584 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.949674129486 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < 0.0 && eta > -0.800000011921) return 0.955099225044 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < 0.800000011921 && eta > 0.0) return 0.95435655117 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.949129760265 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.966977357864 ;
+    if (pt >= 35.0 && pt < 40.0 && eta < 2.5 && eta > 1.57000005245) return 0.974912643433 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < -1.57000005245 && eta > -2.5) return 0.976379692554 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.96400809288 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.967367231846 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < 0.0 && eta > -0.800000011921) return 0.976113498211 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < 0.800000011921 && eta > 0.0) return 0.970276534557 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.965076506138 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.962332487106 ;
+    if (pt >= 40.0 && pt < 45.0 && eta < 2.5 && eta > 1.57000005245) return 0.975438177586 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < -1.57000005245 && eta > -2.5) return 0.974642693996 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.976564764977 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.975869596004 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < 0.0 && eta > -0.800000011921) return 0.984652400017 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < 0.800000011921 && eta > 0.0) return 0.976347208023 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.974825322628 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.968582391739 ;
+    if (pt >= 45.0 && pt < 50.0 && eta < 2.5 && eta > 1.57000005245) return 0.973198652267 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < -1.57000005245 && eta > -2.5) return 0.976521909237 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < -1.44000005722 && eta > -1.57000005245) return 0.968289792538 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < -0.800000011921 && eta > -1.44000005722) return 0.980251729488 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < 0.0 && eta > -0.800000011921) return 0.988307952881 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < 0.800000011921 && eta > 0.0) return 0.983105957508 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < 1.44000005722 && eta > 0.800000011921) return 0.976873219013 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < 1.57000005245 && eta > 1.44000005722) return 0.970499277115 ;
+    if (pt >= 50.0 && pt < 200.0 && eta < 2.5 && eta > 1.57000005245) return 0.972752988338 ;
+    return 1.;
+  }
   
   double mueEff(int Vtype, double eta0, double eta1, double pt0, double pt1){
-      if (Vtype == 0) return 1.;
-      if (Vtype == 1) {
-          return eleEff(pt0,eta0)*eleEff(pt1,eta1);
-      }
-      return 1.;
+    if (Vtype == 0) return 1.;
+    if (Vtype == 1) {
+      return eleEff(pt0,eta0)*eleEff(pt1,eta1);
+    }
+    return 1.;
   }
 
 }

@@ -42,9 +42,8 @@ CA15HiggsMassVeto   = !(<!Cut|CA15HiggsMassWindow!>)
 #!! --------------------------------
 #!! Object Selection
 #!! --------------------------------
-[Obj]
-	
 
+[Obj]
 AK4Jet  = Jet_pt                 > 20 & abs(Jet_eta)                < 2.4
 #AK4JetMod = Jet_pt                 > 20 & abs(Jet_eta)                > 3.0
 AK8Jet  = FatjetAK08ungroomed_pt > 20 & abs(FatjetAK08ungroomed_eta) < 2.4
@@ -60,6 +59,12 @@ AK8HiggsTag              = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8Double
 CA15HiggsTag             = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassWindow!>
 AK8HiggsTagMassSideband  = <!Obj|AK8Jet!>  & <!Cut|AK8tau21!>  & <!Cut|AK8DoubleB!>  & <!Cut|AK8HiggsMassVeto!>  & 35 < FatjetAK08ungroomed_mpruned
 CA15HiggsTagMassSideband = <!Obj|CA15Jet!> & <!Cut|CA15tau21!> & <!Cut|CA15DoubleB!> & <!Cut|CA15HiggsMassVeto!> & 35 < FatjetCA15ungroomed_mpruned
+
+leptonpt1 = vLeptons_pt[0]
+leptonpt2 = vLeptons_pt[1]
+leptonphi1 = vLeptons_phi[0]
+leptonphi2 = vLeptons_phi[1]
+varNo = 0
 
 #!! --------------------------------
 #!! Multiplicities
@@ -84,14 +89,27 @@ CA15HiggsTagMassSideband = Sum$(<!Obj|CA15HiggsTagMassSideband!>)
 #!! --------------------------------
 [Var]
 
+metPrime_pt = VHbb::metPrime(<!Obj|MET!>_pt, <!Obj|MET!>_phi, vLeptons_pt[0], vLeptons_phi[0], vLeptons_pt[1], vLeptons_phi[1], 0)
+metPrime_phi = VHbb::metPrime(<!Obj|MET!>_pt, <!Obj|MET!>_phi, vLeptons_pt[0], vLeptons_phi[0], vLeptons_pt[1], vLeptons_phi[1], 1)
+
 #wrong
 #dPhiAK8JetMET  = MinIf$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) , <!Obj|AK8Jet!>)
 #dPhiCA15JetMET = MinIf$( min(abs(FatjetCA15ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetCA15ungroomed_phi-<!Obj|MET!>_phi)) , <!Obj|CA15Jet!>)
 
 #only works if there is exactly 1 good fat jet
-dPhiAK8JetMET  = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>) )
-dPhiCA15JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>) )
-dPhiMinAK4JetMET =  Min$(abs(VHbb::deltaPhi(Jet_phi,<!Obj|MET!>_phi))*(1+(9E9*!(Jet_pt>20 && abs(Jet_eta)<2.4))))
+#dPhiAK8JetMET  = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>))
+#dPhiCA15JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Obj|MET!>_phi)) * (<!Obj|AK8Jet!>))
+#dPhiMinAK4JetMET =  Min$(abs(VHbb::deltaPhi(Jet_phi,<!Obj|MET!>_phi))*(1+(9E9*!(Jet_pt>20 && abs(Jet_eta)<2.4))))
+
+dPhiAK8JetMET = Sum$( min(abs(FatjetAK08ungroomed_phi-<!Var|metPrime_phi!>),(2*TMath::Pi())-abs(FatjetAK08ungroomed_phi-<!Var|metPrime_phi!>)) * (<!Obj|AK8Jet!>) )
+
+dPhiMinAK4JetMET = Min$(abs(VHbb::deltaPhi(Jet_phi,<!Var|metPrime_phi!>))*(1+(9E9*!(Jet_pt>20 && abs(Jet_eta)<2.4))))
+
+#METPrime = VHbb::metPrime(<!Obj|MET!>_pt,<!Obj|MET!>_phi,vLeptons_pt[0],vLeptons_phi[0],vLeptons_pt[1],vLeptons_phi[1],0)
+#METPrime = Min$(abs(VHbb::metPrime(<!Obj|MET!>_pt,<!Obj|MET!>_phi,<!Obj|leptonpt1!>,<!Obj|leptonphi1!>,<!Obj|leptonpt2!>,<!Obj|leptonphi2!>,<!Obj|varNo!>))*(1+(9E9*!(Jet_pt>20 && abs(Jet_eta)<2.4))))
+
+#What I tried
+#METPrime = Min$(abs(VHbb::metPrime(<!Obj|MET!>_pt,<!Obj|MET!>_phi,<!Obj|leptonpt1!>,<!Obj|leptonphi1!>,<!Obj|leptonpt2!>,<!Obj|leptonphi2!>,<!Obj|varNo!>))*(1+9E9))
 
 #!! --------------------------------
 #!! Event selections
@@ -114,10 +132,19 @@ dPhiMinAK4JetMET =  Min$(abs(VHbb::deltaPhi(Jet_phi,<!Obj|MET!>_phi))*(1+(9E9*!(
 
 #zmumu
 #preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Obj|MET!>_pt > 0 & <!Filter|MET!> & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Var|dPhiMinAK4JetMET!> > 0.5 & V_mass > 75. & V_mass<105 & Sum$(vLeptons_pt > 25) > 0
-preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Obj|MET!>_pt > 0 & <!Filter|MET!> & V_mass > 75. & V_mass<105 & Sum$(vLeptons_pt > 25) > 0
 
-#preselection = Vtype == 2 & <!Trigger|Wmn!> // Zprime has error with terminate called after throwing an instance of 'std::bad_alloc' 
-#preselection = Vtype == 2 & (<!Cut|vLeptonspt!> & isData == 0) // Zprime has error with terminate called after throwing an instance of 'std::bad_alloc'
+#runs fine
+#preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Obj|MET!>_pt > 0 & <!Filter|MET!> & V_mass > 75. & V_mass<105 & Sum$(vLeptons_pt > 25) > 0
+
+#runs fine with closest cuts with Znunu preselection
+#preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Obj|MET!>_pt > 295 & <!Filter|MET!> & V_mass > 75. & V_mass < 105 & Sum$(vLeptons_pt > 25) > 0 & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Var|dPhiMinAK4JetMET!> > 0.5
+
+#using metprime (bad numerical expression)
+#preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Filter|MET!> & V_mass > 75. & V_mass < 105 & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Var|dPhiMinAK4JetMET!> > 0.5 & <!Var|METPrime!> > 2
+
+#John's recipe
+preselection = Vtype==0 & (<!Trigger|Wmn!> || isData == 0) & <!Filter|MET!> & V_mass > 75. & V_mass < 105 & <!Mult|AK8Jet!> == 1 & <!Mult|highPtAK8Jet!> == 1 & <!Var|dPhiAK8JetMET!> > 2.5 & <!Var|dPhiMinAK4JetMET!> > 0.5 
+#& <!Var|metPrime_pt!> > 0
 
 
 #SR = <!Cuts|preselection!> & <!Mult|AK8HiggsTag!> == 1
