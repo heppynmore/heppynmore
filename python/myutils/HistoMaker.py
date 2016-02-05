@@ -20,7 +20,7 @@ class HistoMaker:
             self.cuts.append(options['cut'])
         #print self.cuts
         #self.tc = TreeCache(self.cuts,samples,path) 
-        self.tc = TreeCache(self.cuts,samples,path,config)
+        self.tc = TreeCache(self.cuts,samples,path,config,optionsList)
         self._rebin = False
         self.mybinning = None
         self.GroupDict=GroupDict

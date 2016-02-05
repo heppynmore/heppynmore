@@ -2,10 +2,16 @@ from __future__ import print_function
 import os,sys,subprocess,hashlib
 import ROOT
 from samplesclass import Sample
+from array import array
 
 class TreeCache:
-    def __init__(self, cutList, sampleList, path, config):
+    def __init__(self, cutList, sampleList, path, config, optionsList=[]):
         ROOT.gROOT.SetBatch(True)
+        self.config = config
+        VHbbNameSpace=config.get('VHbbNameSpace','library')
+        ROOT.gSystem.Load(VHbbNameSpace)
+        from ROOT import VHbb
+        self.optionsList = optionsList
         self.path = path
         self._cutList = []
         for cut in cutList:
@@ -42,7 +48,7 @@ class TreeCache:
         checksum = self.get_checksum(source)
         theHash = hashlib.sha224('%s_s%s_%s' %(sample,checksum,self.minCut)).hexdigest()
         self.__hashDict[theName] = theHash
-        tmpSource = '%s/tmp_%s.root'%(self.__tmpPath,theHash)
+        tmpSource = '%s/tmp_%s_%s.root'%(self.__tmpPath,sample.name,theHash)
         print('From: %s' %tmpSource)
         if self.__doCache and self.file_exists(tmpSource):
             return
@@ -71,6 +77,54 @@ class TreeCache:
         if sample.subsample:
             theCut += '& (%s)' %(sample.subcut)
         cuttedTree=tree.CopyTree(theCut)
+
+        #Ben
+        cuttedTree2 = cuttedTree.CloneTree(0)
+        shred = array( 'f', [ 0 ] )
+        isvjets = array( 'i', [ 0 ] )
+        issignal = array( 'i', [ 0 ] )
+        totalweight = array( 'f', [ 0 ] )
+        mvh = array( 'f', [ 0 ] )
+        jetmass = array( 'f', [ 0 ] )
+        cuttedTree2.Branch('shred', shred, 'shred/F')
+        cuttedTree2.Branch('isVJets', isvjets, 'isVJets/I')
+        cuttedTree2.Branch('isSignal', issignal, 'isSignal/I')
+        cuttedTree2.Branch('totalWeight', totalweight, 'totalWeight/F')
+        cuttedTree2.Branch('mVH', mvh, 'mVH/F')
+        cuttedTree2.Branch('jetMass', jetmass, 'jetMass/F')
+        if self.config.has_option('Analysis','addToTree'):
+            if eval(self.config.get('Analysis','addToTree')):
+                #try printing sample name, weight
+                print('BEN %s' %sample.name)
+                #for options in self.optionsList:
+                    #print (options['weight'])
+                print(self.optionsList[0]['weight'])#should be the same for all in list, no?
+                print(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
+                print(ROOT.VHbb.deltaPhi(.6,.9))
+                for i in range(cuttedTree.GetEntries()):
+                    cuttedTree.GetEntry(i)
+                    shred[0] = 100
+                    
+                    isvjets[0] = 0
+                    if "ZJets" in sample.name:
+                        isvjets[0] = 1
+                    elif "WJets" in sample.name:
+                        isvjets[0] = 2
+
+                    issignal[0] = 0
+                    if "Prime" in sample.name:
+                        issignal[0] = 1
+
+                    print(float(self.optionsList[0]['weight']))
+
+                    totalweight[0] = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
+
+                    mvh[0] = 100
+                    jetmass[0] = 100
+
+                    cuttedTree2.Fill()
+                cuttedTree = cuttedTree2
+
         cuttedTree.Write()
         output.Write()
         input.Close()
@@ -86,7 +140,7 @@ class TreeCache:
             self.__trim_tree(job)
 
     def get_tree(self, sample, cut):
-        input = ROOT.TFile.Open('%s/tmp_%s.root'%(self.__tmpPath,self.__hashDict[sample.name]),'read')
+        input = ROOT.TFile.Open('%s/tmp_%s_%s.root'%(self.__tmpPath,sample.name,self.__hashDict[sample.name]),'read')
         tree = input.Get(sample.tree)
         try:
             CountWithPU = input.Get("CountWeighted")
