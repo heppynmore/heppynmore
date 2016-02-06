@@ -115,9 +115,10 @@ class TreeCache:
                     if "Prime" in sample.name:
                         issignal[0] = 1
 
-                    print(float(self.optionsList[0]['weight']))
+                    my_scale = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
+                    my_weight = float(self.optionsList[0]['weight'])
 
-                    totalweight[0] = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
+                    totalweight[0] = my_weight*my_scale
 
                     mvh[0] = 100
                     jetmass[0] = 100
