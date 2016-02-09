@@ -1,5 +1,5 @@
 from __future__ import print_function
-import os,sys,subprocess,hashlib
+import os,sys,subprocess,hashlib,math
 import ROOT
 from samplesclass import Sample
 from array import array
@@ -8,6 +8,9 @@ class TreeCache:
     def __init__(self, cutList, sampleList, path, config, optionsList=[]):
         ROOT.gROOT.SetBatch(True)
         self.config = config
+        if os.path.exists("../interface/DrawFunctions_C.so"):
+            ROOT.gROOT.LoadMacro("../interface/DrawFunctions_C.so")
+            from ROOT import weight2
         VHbbNameSpace=config.get('VHbbNameSpace','library')
         ROOT.gSystem.Load(VHbbNameSpace)
         from ROOT import VHbb
@@ -116,11 +119,12 @@ class TreeCache:
                         issignal[0] = 1
 
                     my_scale = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
-                    my_weight = float(self.optionsList[0]['weight'])
+                    #my_weight = float(self.optionsList[0]['weight'])
 
-                    totalweight[0] = my_weight*my_scale
+                    totalweight[0] = math.copysign(1,cuttedTree.genWeight)*ROOT.weight2(cuttedTree.nTrueInt)*my_scale
+                    #totalweight[0] = math.copysign(1,cuttedTree.genWeight)*weight2(cuttedTree.nTrueInt)*my_scale
 
-                    mvh[0] = 100
+                    mvh[0] = ROOT.TMath.Sqrt(2*cuttedTree.FatjetAK08ungroomed_pt[0]*cuttedTree.metPuppi_pt*(1-ROOT.TMath.Cos(min(abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi),(2*ROOT.TMath.Pi())-abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi)))))
                     jetmass[0] = 100
 
                     cuttedTree2.Fill()
