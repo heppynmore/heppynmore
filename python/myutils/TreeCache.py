@@ -125,7 +125,7 @@ class TreeCache:
                     #totalweight[0] = math.copysign(1,cuttedTree.genWeight)*weight2(cuttedTree.nTrueInt)*my_scale
 
                     mvh[0] = ROOT.TMath.Sqrt(2*cuttedTree.FatjetAK08ungroomed_pt[0]*cuttedTree.metPuppi_pt*(1-ROOT.TMath.Cos(min(abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi),(2*ROOT.TMath.Pi())-abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi)))))
-                    jetmass[0] = 100
+                    jetmass[0] = ROOT.VHbb.selected_mass(cuttedTree.nFatjetAK08ungroomed, cuttedTree.FatjetAK08ungroomed_msoftdrop, cuttedTree.FatjetAK08ungroomed_pt, cuttedTree.FatjetAK08ungroomed_phi)
 
                     cuttedTree2.Fill()
                 cuttedTree = cuttedTree2

@@ -8,6 +8,27 @@
   #endif*/
 
 namespace VHbb {
+
+  //ROOT.TMath.Sqrt(2*cuttedTree.FatjetAK08ungroomed_pt[0]*cuttedTree.metPuppi_pt*(1-ROOT.TMath.Cos(min(abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi),(2*ROOT.TMath.Pi())-abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi)))))
+  //float mvh(std::vector<float>& jet_pt, std::vector<float>& jet_phi, std::vector<float>& met_pt, std::vector<float>& met_phi){
+
+  //relPath: FatjetAK08ungroomed_msoftdrop*(1+((-9E9)*!(FatjetAK08ungroomed_pt==Max$(FatjetAK08ungroomed_pt*(1+((-9E9)*!(FatjetAK08ungroomed_mpruned>35 & FatjetAK08ungroomed_pt>20 & abs(FatjetAK08ungroomed_eta)<2.4)))))))
+  float selected_mass(int n, float* v_mass, float* v_pt, float* v_eta){
+
+    float max_pt = -1;
+    int lead_jet_index = -1;
+    for(int i = 0; i < n; i++){
+      if( abs(v_eta[i])<2.4 && v_pt[i]>20 && v_mass[i]>35 ){
+	if(v_pt[i] > max_pt) lead_jet_index = v_pt[i]; 
+      }
+    }  
+    
+    if(lead_jet_index>0){
+      return v_mass[lead_jet_index];
+    }
+    else return -1;
+  }
+  
   
   //pass in varNo==0 to get the pT, varNo==1 to get the phi
   //pass in lep2_pt==lep2_phi==0 if only 1 lepton to remove
