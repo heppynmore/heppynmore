@@ -4,6 +4,8 @@ import ROOT
 from samplesclass import Sample
 from array import array
 
+from myutils import ParseInfo
+
 class TreeCache:
     def __init__(self, cutList, sampleList, path, config, optionsList=[]):
         ROOT.gROOT.SetBatch(True)
@@ -81,32 +83,22 @@ class TreeCache:
             theCut += '& (%s)' %(sample.subcut)
         cuttedTree=tree.CopyTree(theCut)
 
-        #Ben
         cuttedTree2 = cuttedTree.CloneTree(0)
-        shred = array( 'f', [ 0 ] )
-        isvjets = array( 'i', [ 0 ] )
-        issignal = array( 'i', [ 0 ] )
+        isvjets     = array( 'i', [ 0 ] )
+        issignal    = array( 'i', [ 0 ] )
         totalweight = array( 'f', [ 0 ] )
-        mvh = array( 'f', [ 0 ] )
-        jetmass = array( 'f', [ 0 ] )
-        cuttedTree2.Branch('shred', shred, 'shred/F')
-        cuttedTree2.Branch('isVJets', isvjets, 'isVJets/I')
-        cuttedTree2.Branch('isSignal', issignal, 'isSignal/I')
+        mvh         = array( 'f', [ 0 ] )
+        jetmass     = array( 'f', [ 0 ] )
+        cuttedTree2.Branch('isVJets',     isvjets,     'isVJets/I')
+        cuttedTree2.Branch('isSignal',    issignal,    'isSignal/I')
         cuttedTree2.Branch('totalWeight', totalweight, 'totalWeight/F')
-        cuttedTree2.Branch('mVH', mvh, 'mVH/F')
-        cuttedTree2.Branch('jetMass', jetmass, 'jetMass/F')
+        cuttedTree2.Branch('mVH',         mvh,         'mVH/F')
+        cuttedTree2.Branch('jetMass',     jetmass,     'jetMass/F')
         if self.config.has_option('Analysis','addToTree'):
             if eval(self.config.get('Analysis','addToTree')):
-                #try printing sample name, weight
-                print('BEN %s' %sample.name)
-                #for options in self.optionsList:
-                    #print (options['weight'])
-                print(self.optionsList[0]['weight'])#should be the same for all in list, no?
-                print(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
-                print(ROOT.VHbb.deltaPhi(.6,.9))
+
                 for i in range(cuttedTree.GetEntries()):
                     cuttedTree.GetEntry(i)
-                    shred[0] = 100
                     
                     isvjets[0] = 0
                     if "ZJets" in sample.name:
@@ -118,11 +110,12 @@ class TreeCache:
                     if "Prime" in sample.name:
                         issignal[0] = 1
 
-                    my_scale = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
-                    #my_weight = float(self.optionsList[0]['weight'])
-
-                    totalweight[0] = math.copysign(1,cuttedTree.genWeight)*ROOT.weight2(cuttedTree.nTrueInt)*my_scale
-                    #totalweight[0] = math.copysign(1,cuttedTree.genWeight)*weight2(cuttedTree.nTrueInt)*my_scale
+                    if sample.type == 'DATA':
+                        totalweight[0]=1
+                    else:
+                        my_scale = float(self.get_scale(sample,self.config,float(self.config.get('General','lumi'))))
+                        #my_weight = float(self.optionsList[0]['weight'])
+                        totalweight[0] = math.copysign(1,cuttedTree.genWeight)*ROOT.weight2(cuttedTree.nTrueInt)*my_scale
 
                     mvh[0] = ROOT.TMath.Sqrt(2*cuttedTree.FatjetAK08ungroomed_pt[0]*cuttedTree.metPuppi_pt*(1-ROOT.TMath.Cos(min(abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi),(2*ROOT.TMath.Pi())-abs(cuttedTree.FatjetAK08ungroomed_phi[0]-cuttedTree.metPuppi_phi)))))
                     jetmass[0] = ROOT.VHbb.selected_mass(cuttedTree.nFatjetAK08ungroomed, cuttedTree.FatjetAK08ungroomed_msoftdrop, cuttedTree.FatjetAK08ungroomed_pt, cuttedTree.FatjetAK08ungroomed_phi)
@@ -145,6 +138,7 @@ class TreeCache:
             self.__trim_tree(job)
 
     def get_tree(self, sample, cut):
+        print('get_tree %s', sample.name)
         input = ROOT.TFile.Open('%s/tmp_%s_%s.root'%(self.__tmpPath,sample.name,self.__hashDict[sample.name]),'read')
         tree = input.Get(sample.tree)
         try:
